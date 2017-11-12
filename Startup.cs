@@ -10,7 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 // database
 using Microsoft.EntityFrameworkCore;
 using diary.Data;
+using diary.Models;
 using Pomelo;
+
+// Identity
+using Microsoft.AspNetCore.Identity;
 
 // Kendo UI
 using Newtonsoft.Json.Serialization;
@@ -36,7 +40,15 @@ namespace diary
                                     options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
                   services.AddKendo();
-                  services.AddDbContext<diaryContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnections")));
+
+                  services
+                        .AddDbContext<diaryContext>(
+                              options =>
+                                    options.UseMySql(Configuration.GetConnectionString("MySqlConnections")));
+
+                  services.AddIdentity<User, IdentityRole>()
+                        .AddEntityFrameworkStores<diaryContext>()
+                        .AddDefaultTokenProviders();
             }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +63,9 @@ namespace diary
                         app.UseExceptionHandler("/Home/Error");
                   }
 
+                  app.UseKendo(env);
                   app.UseStaticFiles();
+                  app.UseAuthentication();
 
                   app.UseMvc(routes =>
                   {
