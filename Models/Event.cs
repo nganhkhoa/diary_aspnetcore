@@ -14,7 +14,6 @@ namespace diary.Models
       public class Event
       {
             public int ID { get; set; }
-            public int UserID { get; set; }
             public string Info { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }

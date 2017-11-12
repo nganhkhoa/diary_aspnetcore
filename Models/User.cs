@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace diary.Models
 {
-      public class User
+      public class User : IdentityUser
       {
-            public int ID { get; set; }
+            // Id, UserName, Email are in IdentityUser
+
             public string FirstName { get; set; }
             public string LastName { get; set; }
-            public string Email { get; set; }
             public DateTime Brithday { get; set; }
-            public string Username { get; set; }
-            public string Password { get; set; }
 
             // navigation properties
             public ICollection<Event> Events { get; set; }
