@@ -25,6 +25,5 @@
     <Content Include="Data\diaryContext.cs" />
     <Content Include="Data\DbInitializer.cs" />
     <Content Include="Models\Entry.cs" />
-    <Content Include="Controllers\UsersController.cs" />
   </ItemGroup>
 </Project>
