@@ -23,7 +23,9 @@ namespace diary.Data
                               Email = "khoa@oop.bk16.com",
                               Brithday = DateTime.Parse("1/1/1998"),
                               UserName = "khoa",
-                              PasswordHash = "123456"
+                              NormalizedUserName = "KHOA",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
@@ -33,7 +35,9 @@ namespace diary.Data
                               Email = "khoi@oop.bk16.com",
                               Brithday = DateTime.Parse("2/2/1998"),
                               UserName = "khoi",
-                              PasswordHash = "123456"
+                              NormalizedUserName = "KHOI",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
@@ -43,7 +47,9 @@ namespace diary.Data
                               Email = "duy@oop.bk16.com",
                               Brithday = DateTime.Parse("3/3/1998"),
                               UserName = "duy",
-                              PasswordHash = "123456"
+                              NormalizedUserName = "DUY",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
@@ -53,7 +59,9 @@ namespace diary.Data
                               Email = "chi@oop.bk16.com",
                               Brithday = DateTime.Parse("4/4/1998"),
                               UserName = "chi",
-                              PasswordHash = "123456"
+                              NormalizedUserName = "CHI",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         }
                   };
                   // add user to database
