@@ -19,11 +19,18 @@
     <Content Include="Program.cs" />
     <Content Include="Controllers\HomeController.cs" />
     <Content Include="Models\ErrorViewModel.cs" />
+
     <Content Include="Models\User.cs" />
     <Content Include="Models\Event.cs" />
+    <Content Include="Models\Entry.cs" />
     <Content Include="Models\dataContext.cs" />
     <Content Include="Data\diaryContext.cs" />
     <Content Include="Data\DbInitializer.cs" />
-    <Content Include="Models\Entry.cs" />
+
+    <Content Include="Controllers\AccountController.cs" />
+    <Content Include="Models\AccountViewModels\LoginViewModel.cs" />
+    <Content Include="Models\AccountViewModels\RegisterViewModel.cs" />
+    
+    <Content Include="Helper\PasswordHashing.cs" />
   </ItemGroup>
 </Project>
