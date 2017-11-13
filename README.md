@@ -7,7 +7,7 @@
 - 1610303 Le Vinh Chi
 
 
-This project uses ASP.NET Core a new framwork to build .NET project
+This project uses ASP.NET Core a new framework to build .NET project
 
 ---
 
