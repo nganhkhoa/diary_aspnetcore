@@ -46,9 +46,46 @@ namespace diary
                               options =>
                                     options.UseMySql(Configuration.GetConnectionString("MySqlConnections")));
 
+                  // Identity Services
                   services.AddIdentity<User, IdentityRole>()
                         .AddEntityFrameworkStores<diaryContext>()
                         .AddDefaultTokenProviders();
+
+                  services.Configure<IdentityOptions>(options =>
+                  {
+                        // Password settings
+                        options.Password.RequireDigit = true;
+                        options.Password.RequiredLength = 8;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireLowercase = false;
+                        // options.Password.RequiredUniqueChars = 6;
+
+                        // Lockout settings
+                        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                        options.Lockout.MaxFailedAccessAttempts = 10;
+                        options.Lockout.AllowedForNewUsers = true;
+
+                        // User settings
+                        options.User.RequireUniqueEmail = true;
+                  });
+
+                  services.ConfigureApplicationCookie(options =>
+                  {
+                        // Cookie settings
+                        options.Cookie.HttpOnly = true;
+                        options.Cookie.Expiration = TimeSpan.FromDays(150);
+
+                        // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                        options.LoginPath = "/Account/Login";
+
+                        // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                        options.LogoutPath = "/Account/Logout";
+
+                        // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                        options.AccessDeniedPath = "/Account/AccessDenied";
+                        options.SlidingExpiration = true;
+                  });
             }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,8 +107,8 @@ namespace diary
                   app.UseMvc(routes =>
                   {
                         routes.MapRoute(
-                      name: "default",
-                      template: "{controller=SignInSignUp}/{action=Index}/{id?}");
+                              name: "default",
+                              template: "{controller=Account}/{action=Login}/{id?}");
                   });
             }
       }
