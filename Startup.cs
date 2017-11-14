@@ -77,7 +77,7 @@ namespace diary
                         options.Cookie.Expiration = TimeSpan.FromDays(150);
 
                         // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                        options.LoginPath = "/Account/Login";
+                        options.LoginPath = "/Account/Index";
 
                         // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
                         options.LogoutPath = "/Account/Logout";
