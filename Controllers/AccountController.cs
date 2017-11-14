@@ -41,13 +41,17 @@ namespace diary.Controllers
                   }
             }
 
+            private void AddErrors(IdentityResult result)
+            {
+                  foreach (var error in result.Errors)
+                  {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                  }
+            }
 
-            ///
-            /// Login
-            /// 
             [HttpGet]
             [AllowAnonymous]
-            public async Task<IActionResult> Login(string returnUrl = null)
+            public async Task<IActionResult> Index(string returnUrl = null)
             {
                   // Clear the existing external cookie to ensure a clean login process
                   await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -59,28 +63,72 @@ namespace diary.Controllers
             [HttpPost]
             [AllowAnonymous]
             [ValidateAntiForgeryToken]
-            public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+            public async Task<IActionResult> Index(LoginRegisterModel model, string returnUrl = null)
             {
                   ViewData["ReturnUrl"] = returnUrl;
+                  LoginViewModel loginmodel = model.login;
+                  RegisterViewModel registermodel = model.register;
 
                   if (ModelState.IsValid)
                   {
                         // This doesn't count login failures towards account lockout
                         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                        var result = await _signinmanager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
-                        if (result.Succeeded)
-                        {
-                              return RedirectToLocal(returnUrl);
+                        
+                        if (loginmodel != null && registermodel != null) {
+                              ModelState.AddModelError(string.Empty, "Empty submit");
+                              return View(model);
                         }
-                        else
+                        if (loginmodel == null && registermodel == null) {
+                              ModelState.AddModelError(string.Empty, "Both login and signup");
+                              return View(model);
+                        }
+
+                        if (loginmodel != null)
                         {
-                              ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                               var result =
+                                    await _signinmanager.PasswordSignInAsync(
+                                          loginmodel.UserName,
+                                          loginmodel.Password,
+                                          loginmodel.RememberMe,
+                                          lockoutOnFailure: false);
+
+                              if (result.Succeeded)
+                              {
+                                    return RedirectToLocal(returnUrl);
+                              }
+                              else
+                              {
+                                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                                    return View(model);
+                              }
+                        }
+                        if (registermodel != null)
+                        {
+                              var user = new User
+                              {
+                                    UserName = registermodel.UserName,
+                                    Email = registermodel.Email,
+                              };
+                              var result = await _usermanager.CreateAsync(user, registermodel.Password);
+                              if (!result.Succeeded)
+                              {
+                                    AddErrors(result);
+                              }
+
                               return View(model);
                         }
                   }
 
                   // If we got this far, something failed, redisplay form
                   return View(model);
+            }
+
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public async Task<IActionResult> Logout()
+            {
+                  await _signinmanager.SignOutAsync();
+                  return RedirectToAction(nameof(HomeController.Index), "Home");
             }
       }
 }
