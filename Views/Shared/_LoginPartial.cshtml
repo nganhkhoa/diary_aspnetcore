@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Identity
+@using diary.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+      <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+      </form>
+}
+else{
+      <p><a asp-area="" asp-controller="Account" asp-action="Index"><i class="fa fa-user" aria-hidden="true"></i> Log in/Sign up</a></p>
+      <!--p><a asp-area="" asp-controller="Account" asp-action="Index"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign up</a></p-->
+}
