@@ -50,7 +50,7 @@
     <div class="w3layouts">
         <div class="signin-agile">
             <h2>Sign In</h2>
-            @using (Html.BeginForm("Login", "Account"))
+            @using (Html.BeginForm("Index", "Account"))
             {
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="text" asp-for="login.UserName" class="name" placeholder="Username" required="">
@@ -83,13 +83,19 @@
     <div class="pop-up">
         <div id="small-dialog" class="mfp-hide book-form">
             <h3>Sign Up Form </h3>
-            <form action="#" method="post">
-                <input type="text" name="Name" placeholder="Your Name" required="" />
-                <input type="text" name="Email" class="email" placeholder="Email" required="" />
-                <input type="password" name="Password" class="password" placeholder="Password" required="" />
-                <input type="password" name="Password" class="password" placeholder="Confirm Password" required="" />
+            @using (Html.BeginForm("Index", "Account"))
+            {
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="text" asp-for="register.UserName" placeholder="Your Name" required="" />
+                <span asp-validation-for="register.UserName" class="text-danger"></span>
+                <input type="text" asp-for="register.Email" class="email" placeholder="Email" required="" />
+                <span asp-validation-for="register.Email" class="text-danger"></span>
+                <input type="password" asp-for="register.Password" class="password" placeholder="Password" required="" />
+                <span asp-validation-for="register.Password" class="text-danger"></span>
+                <input type="password" asp-for="register.RetypePassword" class="password" placeholder="Confirm Password" required="" />
+                <span asp-validation-for="register.RetypePassword" class="text-danger"></span>
                 <input type="submit" value="Sign Up">
-            </form>
+            }
         </div>
     </div>
 
