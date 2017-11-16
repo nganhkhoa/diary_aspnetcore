@@ -17,43 +17,51 @@ namespace diary.Data
                   {
                         new User
                         {
-                              ID = 1,
+                              Id = "1",
                               FirstName = "Khoa",
                               LastName = "Nguyen Anh",
                               Email = "khoa@oop.bk16.com",
                               Brithday = DateTime.Parse("1/1/1998"),
-                              Username = "khoa",
-                              Password = "123456",
+                              UserName = "khoa",
+                              NormalizedUserName = "KHOA",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
-                              ID = 2,
+                              Id = "2",
                               FirstName = "Khoi",
                               LastName = "Tran Dang",
                               Email = "khoi@oop.bk16.com",
                               Brithday = DateTime.Parse("2/2/1998"),
-                              Username = "khoi",
-                              Password = "123456",
+                              UserName = "khoi",
+                              NormalizedUserName = "KHOI",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
-                              ID = 3,
+                              Id = "3",
                               FirstName = "Duy",
                               LastName = "Ung Van",
                               Email = "duy@oop.bk16.com",
                               Brithday = DateTime.Parse("3/3/1998"),
-                              Username = "duy",
-                              Password = "123456",
+                              UserName = "duy",
+                              NormalizedUserName = "DUY",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         },
                         new User
                         {
-                              ID = 4,
+                              Id = "4",
                               FirstName = "Chi",
                               LastName = "Le Vinh",
                               Email = "chi@oop.bk16.com",
                               Brithday = DateTime.Parse("4/4/1998"),
-                              Username = "chi",
-                              Password = "123456",
+                              UserName = "chi",
+                              NormalizedUserName = "CHI",
+                              PasswordHash = "123456",
+                              SecurityStamp = "randomestring"
                         }
                   };
                   // add user to database
@@ -66,7 +74,7 @@ namespace diary.Data
                         new Event
                         {
                               ID = 1,
-                              UserID = 1,
+                              User = users[0],
                               Info = "Birthday",
                               StartDate = DateTime.Parse("1/1/2017"),
                               EndDate = DateTime.Parse("2/1/2017"),
@@ -75,7 +83,7 @@ namespace diary.Data
                         new Event
                         {
                               ID = 2,
-                              UserID = 2,
+                              User = users[1],
                               Info = "Birthday",
                               StartDate = DateTime.Parse("2/2/2017"),
                               EndDate = DateTime.Parse("3/2/2017"),
@@ -84,7 +92,7 @@ namespace diary.Data
                         new Event
                         {
                               ID = 3,
-                              UserID = 3,
+                              User = users[2],
                               Info = "Birthday",
                               StartDate = DateTime.Parse("3/3/2017"),
                               EndDate = DateTime.Parse("4/3/2017"),
@@ -93,7 +101,7 @@ namespace diary.Data
                         new Event
                         {
                               ID = 4,
-                              UserID = 4,
+                              User = users[3],
                               Info = "Birthday",
                               StartDate = DateTime.Parse("4/4/2017"),
                               EndDate = DateTime.Parse("5/4/2017"),
@@ -111,7 +119,7 @@ namespace diary.Data
                         new Entry
                         {
                               ID = 1,
-                              UserID = 1,
+                              User = users[0],
                               Content = "Di cong tac xa hoi",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.happy
@@ -119,7 +127,7 @@ namespace diary.Data
                         new Entry
                         {
                               ID = 2,
-                              UserID = 2,
+                              User = users[1],
                               Content = "Hoc oop",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
@@ -127,7 +135,7 @@ namespace diary.Data
                         new Entry
                         {
                               ID = 3,
-                              UserID = 3,
+                              User = users[2],
                               Content = "On fackbook khuya",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
@@ -135,7 +143,7 @@ namespace diary.Data
                         new Entry
                         {
                               ID = 4,
-                              UserID = 4,
+                              User = users[3],
                               Content = "Mat tieu",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
