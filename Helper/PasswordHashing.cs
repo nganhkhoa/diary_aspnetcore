@@ -13,44 +13,14 @@ namespace diary.Helper
 
         }
 
-
-        public string HashPassword(string password)
-        {
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
-
-            password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-
-            return password;
-        }
-
-
         public string HashPassword(User user, string password)
         {
             // this user is a registering user
 
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
+            var data = System.Text.Encoding.ASCII.GetBytes(password);
+            data = System.Security.Cryptography.SHA1.Create().ComputeHash(data);
+            password = Convert.ToBase64String(data);
 
-            password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: user.PasswordHash,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-
-            // has password implementation
             return password;
         }
         public PasswordVerificationResult VerifyHashedPassword(User user, string userpwd, string pwd)
