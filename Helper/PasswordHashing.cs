@@ -16,7 +16,6 @@ namespace diary.Helper
             public string HashPassword(User user, string password)
             {
                   // this user is a registering user
-
                   var data = System.Text.Encoding.ASCII.GetBytes(password);
                   data = System.Security.Cryptography.SHA1.Create().ComputeHash(data);
                   password = Convert.ToBase64String(data);
