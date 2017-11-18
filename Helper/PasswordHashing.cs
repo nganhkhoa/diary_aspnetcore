@@ -35,7 +35,7 @@ namespace diary.Helper
 
         public string HashPassword(User user, string password)
         {
-            // this user is a registering user
+            //// this user is a registering user
 
             byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create())
@@ -44,7 +44,7 @@ namespace diary.Helper
             }
 
             password = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: user.PasswordHash,
+                password: password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
