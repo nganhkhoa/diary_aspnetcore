@@ -27,6 +27,7 @@ ref: http://w3layouts.com
     <script src="/js/jquery-1.11.1.min.js"></script>
     <script src="/js/modernizr.custom.63321.js"></script>
     <script src="/js/Chart.min.js"></script>
+    <script src="/js/getUrlParameter.js"></script>
  
 
     <!--ResponsiveTabs-->
@@ -70,6 +71,31 @@ ref: http://w3layouts.com
             <script type="text/javascript" src="/js/jquery.calendario.js"></script>
             <script type="text/javascript" src="/js/data.js"></script>
             <script type="text/javascript">
+                // create own data
+                var day = getUrlParameter('day');
+                var month = getUrlParameter('month');
+                var year = getUrlParameter('year');
+
+                today = new Date();
+                if (year != today.getFullYear() ||
+                    month != today.getMonth() + 1 ||
+                    day != today.getDate())
+                {
+                    var selection = (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day) + '-' + year;
+                    events[selection] = [{content: 'SELECTION', allDay: true}];
+                    console.log("selection add on calendar");
+                }
+            </script>
+            <script type="text/javascript">
+                // calendar events based on database
+                @for(int i = 0; i < 10; i++)
+                {
+                    <script type="text/javascript">
+                        console.log("Date added");
+                    </script>
+                }
+            </script>
+            <script type="text/javascript">
                 $(function () {
                     function updateMonthYear() {
                         $('#custom-month').html($('#calendar').calendario('getMonthName'));
@@ -96,8 +122,16 @@ ref: http://w3layouts.com
                     $('#calendar').on('shown.calendar.calendario', function () {
                         $('div.fc-row > div').on('onDayClick.calendario', function (e, dateprop) {
                             console.log(dateprop);
-                            if (dateprop.data) {
-                                showEvents(dateprop.data.html, dateprop);
+                            var today = new Date();
+                            if (dateprop.year != today.getFullYear() ||
+                                dateprop.month != today.getMonth() ||
+                                dateprop.day != today.getDate())
+                            {
+                                // jump to date
+                                window.location.href = 
+                                    "Schedule?day=" + dateprop.day + 
+                                    "&month=" + dateprop.month + 
+                                    "&year=" + dateprop.year;
                             }
                         });
                     });
@@ -132,6 +166,8 @@ ref: http://w3layouts.com
                     }
 
                     $('#calendar').calendario({
+                        month: getUrlParameter('month'),
+                        year: getUrlParameter('year'),
                         caldata: events,
                         displayWeekAbbr: true,
                         events: ['click', 'focus']
@@ -189,8 +225,11 @@ ref: http://w3layouts.com
                                             <h5><span class="glyphicon glyphicon-time"></span> 20:21:11 11/12/2017.</h5>
                                             <h5><span class="label label-success">Happy</span></h5><br>
                                             <p id="f1">
-                                                I passed all in this semester.
-                                                I passed all in this semester.
+                                                @ViewData["day"]
+
+                                                @ViewData["month"]
+
+                                                @ViewData["year"]
                                             </p>
                                             <hr>
                                         </td>
