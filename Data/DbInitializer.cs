@@ -1,6 +1,7 @@
 using diary.Models;
 using System;
 using System.Linq;
+using diary.Helper;
 
 namespace diary.Data
 {
@@ -13,6 +14,8 @@ namespace diary.Data
                         return;
                   }
 
+                  var passwordhash = new PasswordHashing();
+
                   var users = new User[]
                   {
                         new User
@@ -24,7 +27,7 @@ namespace diary.Data
                               Brithday = DateTime.Parse("1/1/1998"),
                               UserName = "khoa",
                               NormalizedUserName = "KHOA",
-                              PasswordHash = "123456",
+                              PasswordHash = passwordhash.HashPassword(null, "12345678"),
                               SecurityStamp = "randomestring"
                         },
                         new User
@@ -36,7 +39,7 @@ namespace diary.Data
                               Brithday = DateTime.Parse("2/2/1998"),
                               UserName = "khoi",
                               NormalizedUserName = "KHOI",
-                              PasswordHash = "123456",
+                              PasswordHash = passwordhash.HashPassword(null, "12345678"),
                               SecurityStamp = "randomestring"
                         },
                         new User
@@ -48,7 +51,7 @@ namespace diary.Data
                               Brithday = DateTime.Parse("3/3/1998"),
                               UserName = "duy",
                               NormalizedUserName = "DUY",
-                              PasswordHash = "123456",
+                              PasswordHash = passwordhash.HashPassword(null, "12345678"),
                               SecurityStamp = "randomestring"
                         },
                         new User
@@ -60,7 +63,7 @@ namespace diary.Data
                               Brithday = DateTime.Parse("4/4/1998"),
                               UserName = "chi",
                               NormalizedUserName = "CHI",
-                              PasswordHash = "123456",
+                              PasswordHash = passwordhash.HashPassword(null, "12345678"),
                               SecurityStamp = "randomestring"
                         }
                   };

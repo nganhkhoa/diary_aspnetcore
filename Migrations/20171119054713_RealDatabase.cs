@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace diary.Migrations
 {
-    public partial class IdentityLogin : Migration
+    public partial class RealDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,10 @@ namespace diary.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true),
-                    Name = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: true),
-                    NormalizedName = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: true)
+                    Id = table.Column<string>(maxLength: 127, nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 127, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 127, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,24 +27,24 @@ namespace diary.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    Brithday = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true),
-                    Email = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true),
-                    LastName = table.Column<string>(type: "longtext", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: true),
-                    PasswordHash = table.Column<string>(type: "longtext", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    SecurityStamp = table.Column<string>(type: "longtext", nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: true)
+                    Id = table.Column<string>(maxLength: 127, nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Brithday = table.Column<DateTime>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 127, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 127, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,11 +55,11 @@ namespace diary.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClaimType = table.Column<string>(type: "longtext", nullable: true),
-                    ClaimValue = table.Column<string>(type: "longtext", nullable: true),
-                    RoleId = table.Column<string>(type: "varchar(127)", nullable: false)
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,11 +76,11 @@ namespace diary.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ClaimType = table.Column<string>(type: "longtext", nullable: true),
-                    ClaimValue = table.Column<string>(type: "longtext", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(127)", nullable: false)
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,10 +97,10 @@ namespace diary.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    ProviderKey = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "longtext", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(127)", nullable: false)
+                    LoginProvider = table.Column<string>(maxLength: 127, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 127, nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,8 +117,8 @@ namespace diary.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    RoleId = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false)
+                    UserId = table.Column<string>(maxLength: 127, nullable: false),
+                    RoleId = table.Column<string>(maxLength: 127, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,10 +141,10 @@ namespace diary.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    LoginProvider = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    Name = table.Column<string>(type: "varchar(127)", maxLength: 127, nullable: false),
-                    Value = table.Column<string>(type: "longtext", nullable: true)
+                    UserId = table.Column<string>(maxLength: 127, nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 127, nullable: false),
+                    Name = table.Column<string>(maxLength: 127, nullable: false),
+                    Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -161,12 +161,12 @@ namespace diary.Migrations
                 name: "Entry",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(type: "longtext", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Mood = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "varchar(127)", nullable: true)
+                    Content = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Mood = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,13 +183,13 @@ namespace diary.Migrations
                 name: "Event",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Info = table.Column<string>(type: "longtext", nullable: true),
-                    Occurrence = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<string>(type: "varchar(127)", nullable: true)
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Info = table.Column<string>(nullable: true),
+                    Occurrence = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
