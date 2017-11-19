@@ -16,9 +16,6 @@ using Pomelo;
 // Identity
 using Microsoft.AspNetCore.Identity;
 
-// Kendo UI
-using Newtonsoft.Json.Serialization;
-
 namespace diary
 {
       public class Startup
@@ -34,12 +31,7 @@ namespace diary
             public void ConfigureServices(IServiceCollection services)
             {
                   services
-                        .AddMvc()
-                        .AddJsonOptions(
-                              options =>
-                                    options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
-                  services.AddKendo();
+                        .AddMvc();
 
                   services
                         .AddDbContext<diaryContext>(
@@ -100,7 +92,6 @@ namespace diary
                         app.UseExceptionHandler("/Home/Error");
                   }
 
-                  app.UseKendo(env);
                   app.UseStaticFiles();
                   app.UseAuthentication();
 
