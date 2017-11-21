@@ -73,8 +73,8 @@
             <div class="container">
 
                 <div class="header-top-right">
-                       @await Html.PartialAsync("_LoginPartial")
-                </div class="clearfix">
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
             </div>
         </div>
         <div class="head">
@@ -116,33 +116,32 @@
 
     @RenderBody()
 
-
-    <!-- contact -->
-    <div class="contact">
-        <p> My Dairy has all you need. Let's write with your heart.</p>
-    </div>
-    <!-- //contact -->
-
-    <!-- copyright -->
-    <div class="copyright">
-        <div class="container">
-            <div class="copyrighttop">
-                <ul>
-                    <li><h4>Follow us on:</h4></li>
-                    <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a class="facebook" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a class="facebook" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li><a class="facebook" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                </ul>
-            </div>
-            <div class="copyrightbottom">
-                <p>© 2017 My Diary</a></p>
-            </div>
-            <div class="clearfix"></div>
+    <div class="footer">
+        <!-- contact -->
+        <div class="contact">
+            <p> My Dairy has all you need. Let's write with your heart.</p>
         </div>
+        <!-- //contact -->
+        <!-- copyright -->
+        <div class="copyright">
+            <div class="container">
+                <div class="copyrighttop">
+                    <ul>
+                        <li><h4>Follow us on:</h4></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="copyrightbottom">
+                    <p>© 2017 My Diary</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- //copyright -->
     </div>
-    <!-- //copyright -->
-
 
     @RenderSection("Scripts", required: false)
 </body>
