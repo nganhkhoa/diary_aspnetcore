@@ -37,7 +37,7 @@ namespace diary.Controllers
                   }
                   else
                   {
-                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                        return RedirectToAction(nameof(ScheduleController.Index), "Schedule");
                   }
             }
 
@@ -73,24 +73,26 @@ namespace diary.Controllers
                   {
                         // This doesn't count login failures towards account lockout
                         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                        
-                        if (loginmodel != null && registermodel != null) {
-                              ModelState.AddModelError(string.Empty, "Empty submit");
+
+                        if (loginmodel != null && registermodel != null)
+                        {
+                              ModelState.AddModelError(string.Empty, "Both login and signup");
                               return View(model);
                         }
-                        if (loginmodel == null && registermodel == null) {
-                              ModelState.AddModelError(string.Empty, "Both login and signup");
+                        if (loginmodel == null && registermodel == null)
+                        {
+                              ModelState.AddModelError(string.Empty, "Empty submit");
                               return View(model);
                         }
 
                         if (loginmodel != null)
                         {
-                               var result =
-                                    await _signinmanager.PasswordSignInAsync(
-                                          loginmodel.UserName,
-                                          loginmodel.Password,
-                                          loginmodel.RememberMe,
-                                          lockoutOnFailure: false);
+                              var result =
+                                   await _signinmanager.PasswordSignInAsync(
+                                         loginmodel.UserName,
+                                         loginmodel.Password,
+                                         loginmodel.RememberMe,
+                                         lockoutOnFailure: false);
 
                               if (result.Succeeded)
                               {

@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using diary.Models;
+using System;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace diary.Helper
 {
@@ -7,10 +10,16 @@ namespace diary.Helper
       {
             public PasswordHashing()
             {
+
             }
+
             public string HashPassword(User user, string password)
             {
-                  // has password implementation
+                  // this user is a registering user
+                  var data = System.Text.Encoding.ASCII.GetBytes(password);
+                  data = System.Security.Cryptography.SHA1.Create().ComputeHash(data);
+                  password = Convert.ToBase64String(data);
+
                   return password;
             }
             public PasswordVerificationResult VerifyHashedPassword(User user, string userpwd, string pwd)

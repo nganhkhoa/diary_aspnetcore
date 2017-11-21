@@ -92,10 +92,11 @@ a:focus, a:hover {
 /*--header--*/
 .logo h1 a {
     text-decoration: none;
-    color: #ff4c4c;
+    color: #337ab7;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1em;
+    font-weight: 700;
 }
 
 .header-top-right a {
@@ -819,7 +820,7 @@ h3.heading {
 
 .contact {
     background: #232a34;
-    padding: 3em 0;
+    padding: 1em 0;
 }
 
     .contact h3.heading {
@@ -929,7 +930,7 @@ a.facebook {
     letter-spacing: 1px;
     line-height: 1.8em;
     width: 50%;
-    margin: 0 auto 5em;
+    margin: 0 auto 0em;
 }
 /* copyright */
 
@@ -1590,10 +1591,10 @@ h3.hdg {
     background: none;
 }
 
-.label {
+/*.label {
     font-weight: 300 !important;
     border-radius: 4px;
-}
+}*/
 
 .grid_5 {
     background: none;
@@ -1672,15 +1673,15 @@ section#tables p {
     visibility: visible;
 }
 
-.label {
+/*.label {
     font-weight: 300 !important;
-}
+}*/
 
-.label {
-    padding: 4px 6px;
+/*.label {
+    padding: 1px 4px;
     border: none;
     text-shadow: none;
-}
+}*/
 
 .nav-tabs {
     margin-bottom: 1em;
