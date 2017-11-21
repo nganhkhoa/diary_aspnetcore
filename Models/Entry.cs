@@ -1,27 +1,39 @@
 using System;
 
 namespace diary.Models
-{
-      public enum Mood
-      {
-            inlove,
-            joyful,
-            happy,
-            peaceful,
-            normal,
-            a_bit_blue,
-            sad,
-            depress,
-            gloomy
-      };
-      public class Entry
-      {
-            public int ID { get; set; }
-            public string Content { get; set; }
-            public DateTime Date { get; set; }
-            public Mood? Mood { get; set; }
 
-            // navigation properties
-            public User User { get; set; }
-      }
+{
+    public enum Mood
+    {
+        inlove,
+        joyful,
+        happy,
+        peaceful,
+        normal,
+        a_bit_blue,
+        sad,
+        depress,
+        gloomy
+    };
+    public class Entry
+    {
+
+        public Entry()
+        {
+            ID = 0;
+            Content = "";
+            Date = DateTime.Parse("1/1/2001");
+            User = new User();
+        }
+
+        private EntryContext entrycontext;
+
+        public int ID { get; set; }
+        public string Content { get; set; }
+        public DateTime Date { get; set; }
+        public Mood? Mood { get; set; }
+
+        // navigation properties
+        public User User { get; set; }
+    }
 }

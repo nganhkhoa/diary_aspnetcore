@@ -1,6 +1,16 @@
-﻿<!--
+﻿
+<!--
 ref: http://w3layouts.com
 -->
+
+@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+
+@model diary.Models.ModelCollection
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 <!DOCTYPE html>
 <html>
 <head>
@@ -186,8 +196,8 @@ ref: http://w3layouts.com
                 <input id="tab2" type="radio" name="tabs">
                 <label for="tab2">My Events</label>
 
-
-
+            
+            
                 <section id="content1">
                     @*content1_myDiary*@
 
@@ -196,8 +206,9 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <div class="widget-area no-padding blank">
                                 <div class="status-upload">
-                                    <form>
-                                        <textarea placeholder="What are you thinking right now?"></textarea>
+                                                                                           
+                                    <form asp-controller ="Schedule" asp-action ="EntryProcess"  method="get">
+                                        <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
                                         <ul>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
@@ -206,53 +217,44 @@ ref: http://w3layouts.com
                                         </ul>
                                         <button type="submit" class="btn btn-success green"><i class="fa fa-upload"></i>Upload</button>
                                     </form>
+                                
                                 </div><!-- Status Upload  -->
                             </div><!-- Widget Area -->
                         </div>
                     </div>
 
+                  
+               
                     @*MyDiary List here*@
                     <div class="row">
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
+                                                                     
+                                    @foreach (var entry in Model.entryList)
+                                    {
+                                       @if (entry.User.Id == Model.userId)
+                                        {
+                                           @*Diary1*@
+                                            <tr id="d1">
+                                            <td>
+                                                <h2>@entry.Content</h2>
+                                                <h5><span class="glyphicon glyphicon-time"></span> @entry.Date</h5>
+                                                <h5><span class="label label-success">Happy</span></h5><br>
+                                                <p id="f1">
+                                                    @ViewData["day"]
 
+                                                    @ViewData["month"]
 
-                                    @*Diary1*@
-                                    <tr id="d1">
-                                        <td>
-                                            <h2>Pass Exam</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span> 20:21:11 11/12/2017.</h5>
-                                            <h5><span class="label label-success">Happy</span></h5><br>
-                                            <p id="f1">
-                                                @ViewData["day"]
-
-                                                @ViewData["month"]
-
-                                                @ViewData["year"]
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                    </tr>
-
-
-                                    @*Diary2*@
-                                    <tr id="d2">
-                                        <td>
-                                            <h2>Fail Exam</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span> 15:22:11 11/12/2016.</h5>
-                                            <h5><span class="label label-success">Angry</span></h5><br>
-                                            <p id="f2">
-                                                I failed all in this semester.
-                                                I passed all in this semester.
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="2" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="2" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                    </tr>
+                                                    @ViewData["year"]
+                                                </p>
+                                                <hr>
+                                           </td>
+                                            <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                            <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                            </tr>
+                                        }
+                                    }
                                   
                                 </tbody>
                             </table>
