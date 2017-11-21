@@ -1,5 +1,6 @@
 using diary.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using diary.Helper;
 
@@ -67,10 +68,6 @@ namespace diary.Data
                               SecurityStamp = "randomestring"
                         }
                   };
-                  // add user to database
-                  foreach (User u in users)
-                        context.Add(u);
-                  context.SaveChanges();
 
                   var events = new Event[]
                   {
@@ -111,10 +108,6 @@ namespace diary.Data
                               Occurrence = Occurrency.once_a_year
                         }
                   };
-                  // add user to database
-                  foreach (Event e in events)
-                        context.Add(e);
-                  context.SaveChanges();
 
 
                   var entries = new Entry[]
@@ -152,7 +145,30 @@ namespace diary.Data
                               Mood = Mood.normal
                         }
                   };
+
+                  /*
+                  foreach (User u in users)
+                  {
+                        u.Entries = new Collection<Entry>();
+                        u.Events = new Collection<Event>();
+                  }
+
+                  for (int i = 0; i < users.Length; ++i)
+                  {
+                        users[i].Entries.Add(entries[i]);
+                        users[i].Events.Add(events[i]);
+                  }
+                  */
+
                   // add user to database
+                  foreach (User u in users)
+                        context.Add(u);
+                  context.SaveChanges();
+
+                  foreach (Event e in events)
+                        context.Add(e);
+                  context.SaveChanges();
+
                   foreach (Entry e in entries)
                         context.Add(e);
                   context.SaveChanges();

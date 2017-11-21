@@ -38,7 +38,7 @@ ref: http://w3layouts.com
     <script src="/js/modernizr.custom.63321.js"></script>
     <script src="/js/Chart.min.js"></script>
     <script src="/js/getUrlParameter.js"></script>
- 
+
 
     <!--ResponsiveTabs-->
     <script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
@@ -138,9 +138,9 @@ ref: http://w3layouts.com
                                 dateprop.day != today.getDate())
                             {
                                 // jump to date
-                                window.location.href = 
-                                    "Schedule?day=" + dateprop.day + 
-                                    "&month=" + dateprop.month + 
+                                window.location.href =
+                                    "Schedule?day=" + dateprop.day +
+                                    "&month=" + dateprop.month +
                                     "&year=" + dateprop.year;
                             }
                         });
@@ -196,8 +196,8 @@ ref: http://w3layouts.com
                 <input id="tab2" type="radio" name="tabs">
                 <label for="tab2">My Events</label>
 
-            
-            
+
+
                 <section id="content1">
                     @*content1_myDiary*@
 
@@ -206,7 +206,7 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <div class="widget-area no-padding blank">
                                 <div class="status-upload">
-                                                                                           
+
                                     <form asp-controller ="Schedule" asp-action ="EntryProcess"  method="get">
                                         <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
                                         <ul>
@@ -217,49 +217,53 @@ ref: http://w3layouts.com
                                         </ul>
                                         <button type="submit" class="btn btn-success green"><i class="fa fa-upload"></i>Upload</button>
                                     </form>
-                                
+
                                 </div><!-- Status Upload  -->
                             </div><!-- Widget Area -->
                         </div>
                     </div>
 
-                  
-               
+
+
                     @*MyDiary List here*@
                     <div class="row">
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-                                                                     
-                                    @foreach (var entry in Model.entryList)
+                                
+                                @if (Model.entryList.Count() == 0)
+                                {
+                                    <p>
+                                        Nothing here
+                                    </p>
+                                }else{
+                                    foreach (var entry in Model.entryList)
                                     {
-                                       @if (entry.User.Id == Model.userId)
-                                        {
-                                           @*Diary1*@
-                                            <tr id="d1">
-                                            <td>
-                                                <h2>@entry.Content</h2>
-                                                <h5><span class="glyphicon glyphicon-time"></span> @entry.Date</h5>
-                                                <h5><span class="label label-success">Happy</span></h5><br>
-                                                <p id="f1">
-                                                    @ViewData["day"]
+                                        <script>
+                                            console.log("fox");
+                                        </script>
 
-                                                    @ViewData["month"]
-
-                                                    @ViewData["year"]
-                                                </p>
-                                                <hr>
-                                           </td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                            </tr>
-                                        }
+                                        @*Diary1*@
+                                        <tr id="d1">
+                                        <td>
+                                            <h2>Diary</h2>
+                                            <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
+                                            <h5><span class="label label-success">Happy</span></h5><br>
+                                            <p id="f1">
+                                                @entry.Content
+                                            </p>
+                                            <hr>
+                                        </td>
+                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                        </tr>
                                     }
-                                  
+                                }
+
                                 </tbody>
                             </table>
                         </div>
-                    </div>     
+                    </div>
                 </section> @*/content1_myDiary*@
 
 
@@ -343,7 +347,7 @@ ref: http://w3layouts.com
                             <h4 class="modal-title">Update Data</h4>
                         </div>
                         <div class="modal-body">
-                            <textarea id="fn" type="text" class="form-control" name="fname" placeholder="Edit here..."></textarea>                   
+                            <textarea id="fn" type="text" class="form-control" name="fname" placeholder="Edit here..."></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="up" class="btn btn-warning" data-dismiss="modal">Update</button>
@@ -371,9 +375,9 @@ ref: http://w3layouts.com
             </div>
         </div>
         <!--//news feed -->
-       
 
-        
+
+
         <style>
             .post {
                 word-wrap: break-word;
