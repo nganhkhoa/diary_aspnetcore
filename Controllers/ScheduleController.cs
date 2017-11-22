@@ -63,6 +63,7 @@ namespace diary.Controllers
 
                   model.entryList = entries;
                   model.eventList = events;
+                  model.Date = Exdatetime;
 
                   return View(model);
             }
@@ -90,14 +91,44 @@ namespace diary.Controllers
                   _context.Entries.Add(entry);
                   _context.SaveChanges();
 
-
-
                   return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
                         new
                         {
                               day = today.Day,
                               month = today.Month,
                               year = today.Year
+                        });
+            }
+
+
+            public async Task<IActionResult> EventProcess(ModelCollection model)
+            {
+                  NewEventModel modeltemp = model.evModel;
+
+                  if (modeltemp.Info == "" || modeltemp.Info == null)
+                  {
+                        return RedirectToAction("Index");
+                  }
+
+                  var user = await _usermanager.GetUserAsync(User);
+                  var e = new Event()
+                  {
+                        ID = _context.Events.ToList().Count() + 1,
+                        Info = modeltemp.Info,
+                        StartDate = Exdatetime,
+                        EndDate = Exdatetime,
+                        User = user
+                  };
+
+                  _context.Events.Add(e);
+                  _context.SaveChanges();
+
+                  return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
+                        new
+                        {
+                              day = ScheduleController.Exdatetime.Day,
+                              month = ScheduleController.Exdatetime.Month,
+                              year = ScheduleController.Exdatetime.Year
                         });
             }
       }

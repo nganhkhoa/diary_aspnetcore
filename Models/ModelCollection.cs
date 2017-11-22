@@ -9,9 +9,11 @@ namespace diary.Models
       public class ModelCollection
       {
             public UploadDatetimeModel udModel { get; set; }
+            public NewEventModel evModel { get; set; }
             public IEnumerable<Entry> entryList { get; set; }
             public IEnumerable<Event> eventList { get; set; }
 
+            public DateTime Date { get; set; }
             public string UserName { get; set; }
       }
 }
