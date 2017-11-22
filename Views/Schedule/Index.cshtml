@@ -121,13 +121,6 @@ ref: http://w3layouts.com
                 }
             </script>
             <script type="text/javascript">
-                $(function () {
-                    function updateMonthYear() {
-                        $('#custom-month').html($('#calendar').calendario('getMonthName'));
-                        $('#custom-year').html($('#calendar').calendario('getYear'));
-                    }
-            </script>
-            <script type="text/javascript">
                     $(function () {
                         function updateMonthYear() {
                             $('#custom-month').html($('#calendar').calendario('getMonthName'));
@@ -166,6 +159,7 @@ ref: http://w3layouts.com
                                     "&year=" + dateprop.year;
                             }
                         });
+                    });
 
                         var transEndEventNames = {
                             'WebkitTransition': 'webkitTransitionEnd',
@@ -270,11 +264,9 @@ ref: http://w3layouts.com
                                         <div class="jumbotron">
                                             <div class="text-center"><i class="fa fa-5x fa-frown-o" style="color:#d9534f;"></i></div>
                                             <h1 class="text-center">No Diary found</h1>
-                                            <p class="text-center">Let's write you thinking right now...</p>
+                                            <p class="text-center">How was your day??</p>
                                         </div>
-                                    }
-                                    else
-                                    {
+                                    }else{
                                         foreach (var entry in Model.entryList.Reverse())
                                         {
 
