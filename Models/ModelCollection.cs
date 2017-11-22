@@ -12,6 +12,7 @@ namespace diary.Models
             public NewEventModel evModel { get; set; }
             public IEnumerable<Entry> entryList { get; set; }
             public IEnumerable<Event> eventList { get; set; }
+            public IEnumerable<Event> todayEventList { get; set; }
 
             public DateTime Date { get; set; }
             public string UserName { get; set; }

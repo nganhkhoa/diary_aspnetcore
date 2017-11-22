@@ -315,13 +315,8 @@ ref: http://w3layouts.com
                                             No events today
                                         </p>
                                     }else{
-                                    foreach (var e in Model.eventList.Reverse())
+                                    foreach (var e in Model.todayEventList)
                                     {
-                                        if (e.StartDate.Date > DateTime.Now.Date ||
-                                            e.EndDate.Date < DateTime.Now.Date)
-                                        {
-                                            continue;
-                                        }
                                         <tr id="d + @i">
                                             <td>
                                                 <h2>Events</h2>
