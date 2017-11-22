@@ -34,6 +34,8 @@ ref: http://w3layouts.com
     <link href="/css/status.css" type="text/css" rel="stylesheet">
     <link href="/css/calendar.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/ladda.min.css">
+    <link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     <!-- //Custom Theme files -->
     <!-- font-awesome icons -->
     <link href="/css/font-awesome.css" rel="stylesheet">
@@ -124,23 +126,30 @@ ref: http://w3layouts.com
                         $('#custom-month').html($('#calendar').calendario('getMonthName'));
                         $('#custom-year').html($('#calendar').calendario('getYear'));
                     }
+            </script>
+            <script type="text/javascript">
+                    $(function () {
+                        function updateMonthYear() {
+                            $('#custom-month').html($('#calendar').calendario('getMonthName'));
+                            $('#custom-year').html($('#calendar').calendario('getYear'));
+                        }
 
-                    $(document).on('finish.calendar.calendario', function (e) {
-                        $('#custom-month').html($('#calendar').calendario('getMonthName'));
-                        $('#custom-year').html($('#calendar').calendario('getYear'));
-                        $('#custom-next').on('click', function () {
-                            $('#calendar').calendario('gotoNextMonth', updateMonthYear);
+                        $(document).on('finish.calendar.calendario', function (e) {
+                            $('#custom-month').html($('#calendar').calendario('getMonthName'));
+                            $('#custom-year').html($('#calendar').calendario('getYear'));
+                            $('#custom-next').on('click', function () {
+                                $('#calendar').calendario('gotoNextMonth', updateMonthYear);
+                            });
+                            $('#custom-prev').on('click', function () {
+                                $('#calendar').calendario('gotoPreviousMonth', updateMonthYear);
+                            });
+                            $('#custom-current').on('click', function () {
+                                $('#calendar').calendario('gotoNow', updateMonthYear);
+                            });
+                            $('#custom-current').on('click', function () {
+                                $('#calendar').calendario('gotoNow', updateMonthYear);
+                            });
                         });
-                        $('#custom-prev').on('click', function () {
-                            $('#calendar').calendario('gotoPreviousMonth', updateMonthYear);
-                        });
-                        $('#custom-current').on('click', function () {
-                            $('#calendar').calendario('gotoNow', updateMonthYear);
-                        });
-                        $('#custom-current').on('click', function () {
-                            $('#calendar').calendario('gotoNow', updateMonthYear);
-                        });
-                    });
 
                     $('#calendar').on('shown.calendar.calendario', function () {
                         $('div.fc-row > div').on('onDayClick.calendario', function (e, dateprop) {
@@ -157,46 +166,45 @@ ref: http://w3layouts.com
                                     "&year=" + dateprop.year;
                             }
                         });
-                    });
 
-                    var transEndEventNames = {
-                        'WebkitTransition': 'webkitTransitionEnd',
-                        'MozTransition': 'transitionend',
-                        'OTransition': 'oTransitionEnd',
-                        'msTransition': 'MSTransitionEnd',
-                        'transition': 'transitionend'
-                    },
-                        transEndEventName = transEndEventNames[Modernizr.prefixed('transition')],
-                        $wrapper = $('#custom-inner');
+                        var transEndEventNames = {
+                            'WebkitTransition': 'webkitTransitionEnd',
+                            'MozTransition': 'transitionend',
+                            'OTransition': 'oTransitionEnd',
+                            'msTransition': 'MSTransitionEnd',
+                            'transition': 'transitionend'
+                        },
+                            transEndEventName = transEndEventNames[Modernizr.prefixed('transition')],
+                            $wrapper = $('#custom-inner');
 
-                    function showEvents(contentEl, dateprop) {
-                        hideEvents();
-                        var $events = $('<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateprop.monthname + ' '
-                            + dateprop.day + ', ' + dateprop.year + '</h4></div>'),
-                            $close = $('<span class="custom-content-close"></span>').on('click', hideEvents);
-                        $events.append(contentEl.join(''), $close).insertAfter($wrapper);
-                        setTimeout(function () {
-                            $events.css('top', '0%');
-                        }, 25);
-                    }
-
-                    function hideEvents() {
-                        var $events = $('#custom-content-reveal');
-                        if ($events.length > 0) {
-                            $events.css('top', '100%');
-                            Modernizr.csstransitions ? $events.on(transEndEventName, function () { $(this).remove(); }) : $events.remove();
+                        function showEvents(contentEl, dateprop) {
+                            hideEvents();
+                            var $events = $('<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateprop.monthname + ' '
+                                + dateprop.day + ', ' + dateprop.year + '</h4></div>'),
+                                $close = $('<span class="custom-content-close"></span>').on('click', hideEvents);
+                            $events.append(contentEl.join(''), $close).insertAfter($wrapper);
+                            setTimeout(function () {
+                                $events.css('top', '0%');
+                            }, 25);
                         }
-                    }
 
-                    $('#calendar').calendario({
-                        month: getUrlParameter('month'),
-                        year: getUrlParameter('year'),
-                        caldata: events,
-                        displayWeekAbbr: true,
-                        events: ['click', 'focus']
+                        function hideEvents() {
+                            var $events = $('#custom-content-reveal');
+                            if ($events.length > 0) {
+                                $events.css('top', '100%');
+                                Modernizr.csstransitions ? $events.on(transEndEventName, function () { $(this).remove(); }) : $events.remove();
+                            }
+                        }
+
+                        $('#calendar').calendario({
+                            month: getUrlParameter('month'),
+                            year: getUrlParameter('year'),
+                            caldata: events,
+                            displayWeekAbbr: true,
+                            events: ['click', 'focus']
+                        });
+
                     });
-
-                });
             </script>
         </div>
         <!--//calendar-->
@@ -214,28 +222,41 @@ ref: http://w3layouts.com
                 <section id="content1">
                     @*content1_myDiary*@
 
-                @if (Model.Date.Date == DateTime.Now.Date) {
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <div class="widget-area no-padding blank">
-                                <div class="status-upload">
+                    @if (Model.Date.Date == DateTime.Now.Date)
+                    {
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="widget-area no-padding blank">
+                                    <div class="status-upload">
 
-                                    <form asp-controller ="Schedule" asp-action ="EntryProcess"  method="get">
-                                        <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
-                                        <ul>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                        </ul>
-                                        <button type="submit" class="btn btn-success green"><i class="fa fa-upload"></i>Upload</button>
-                                    </form>
+                                        <form asp-controller="Schedule" asp-action="EntryProcess" method="get">
+                                            <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
+                                            <ul>
+                                                <li>
+                                                    <div class="dropdown">
+                                                        <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Emotion</button>
+                                                        <div class="dropdown-content">
+                                                            <a href="#">Link 1</a>
+                                                            <a href="#">Link 2</a>
+                                                            <a href="#">Link 3</a>
+                                                            <a href="#">Link 3</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
+                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
+                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
+                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
+                                            </ul>
+                                            <button type="submit" class="btn btn-success green"><i class="fa fa-upload"></i>Upload</button>
+                                        </form>
 
-                                </div><!-- Status Upload  -->
-                            </div><!-- Widget Area -->
+                                    </div><!-- Status Upload  -->
+                                </div><!-- Widget Area -->
+                            </div>
+
                         </div>
-                    </div>
-                }
+                    }
 
 
                     @*MyDiary List here*@
@@ -243,32 +264,36 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-                                
-                                @if (Model.entryList.Count() == 0)
-                                {
-                                    <p>
-                                        Nothing here
-                                    </p>
-                                }else{
-                                    foreach (var entry in Model.entryList.Reverse())
-                                    {
 
-                                        @*Diary1*@
-                                        <tr id="d + @i">
-                                        <td>
-                                            <h2>Diary</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
-                                            <h5><span class="label label-success">@entry.Mood</span></h5><br>
-                                            <p id="f + @i++">
-                                                @entry.Content
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                        </tr>
+                                    @if (Model.entryList.Count() == 0)
+                                    {
+                                        <div class="jumbotron">
+                                            <div class="text-center"><i class="fa fa-5x fa-frown-o" style="color:#d9534f;"></i></div>
+                                            <h1 class="text-center">No Diary found</h1>
+                                            <p class="text-center">Let's write you thinking right now...</p>
+                                        </div>
                                     }
-                                }
+                                    else
+                                    {
+                                        foreach (var entry in Model.entryList.Reverse())
+                                        {
+
+                                            @*Diary1*@
+                                            <tr id="d + @i">
+                                                <td>
+                                                    <h2>Diary</h2>
+                                                    <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
+                                                    <h5><span class="label label-success">@entry.Mood</span></h5><br>
+                                                    <p id="f + @i++">
+                                                        @entry.Content
+                                                    </p>
+                                                    <hr>
+                                                </td>
+                                                <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                                <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                            </tr>
+                                        }
+                                    }
 
                                 </tbody>
                             </table>
@@ -288,7 +313,39 @@ ref: http://w3layouts.com
                                 <div class="status-upload">
                                     <form asp-action="EventProcess">
                                         <textarea asp-for="evModel.Info" placeholder="What is your next events?"></textarea>
+                                        <div class="row">
+                                            <div class="col-lg-6"> 
+                                                    <label class="control-label col-sm-2" for="start-date">Start:</label>
+                                                    <div class="input-group registration-date-time">
+                                                        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                                        <input class="form-control" name="start_date" id="start-date" type="date">
+                                                        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                                                        <input class="form-control" name="start_time" id="start-time" type="time">
+                                                    </div>                               
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="control-label col-sm-2" for="end-date">End:</label>
+                                                <div class="input-group registration-date-time">
+                                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                                    <input class="form-control" name="end_date" id="end-date" type="date">
+                                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+                                                    <input class="form-control" name="end_time" id="end-time" type="time">
+                                                </div>  
+                                            </div>
+                                        </div>
+
                                         <ul>
+                                            <li>
+                                                <div class="dropdown">
+                                                    <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Emotion</button>
+                                                    <div class="dropdown-content">
+                                                        <a href="#">Link 1</a>
+                                                        <a href="#">Link 2</a>
+                                                        <a href="#">Link 3</a>
+                                                        <a href="#">Link 3</a>
+                                                    </div>
+                                                </div>
+                                            </li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
@@ -308,28 +365,33 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-                                    
+
                                     @if (Model.eventList.Count() == 0)
                                     {
-                                        <p>
-                                            No events today
-                                        </p>
-                                    }else{
-                                    foreach (var e in Model.todayEventList)
+                                        <div class="jumbotron">
+                                            <div class="text-center"><i class="fa fa-5x fa-frown-o" style="color:#d9534f;"></i></div>
+                                            <h1 class="text-center">No Event found</h1>
+                                            <p class="text-center">Let's set up your Events right now...</p>
+                                        </div>
+                                    }
+                                    else
                                     {
-                                        <tr id="d + @i">
-                                            <td>
-                                                <h2>Events</h2>
-                                                <h5><span class="glyphicon glyphicon-time"></span> @e.StartDate.Date.ToString() -> @e.EndDate.Date.ToString()</h5>
-                                                <p id="f + @i++">
-                                                    @e.Info
-                                                </p>
-                                                <hr>
-                                            </td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="3" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="3" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                        </tr>
-                                    }}
+                                        foreach (var e in Model.todayEventList)
+                                        {
+                                            <tr id="d + @i">
+                                                <td>
+                                                    <h2>Events</h2>
+                                                    <h5><span class="glyphicon glyphicon-time"></span> @e.StartDate.Date.ToString() -> @e.EndDate.Date.ToString()</h5>
+                                                    <p id="f + @i++">
+                                                        @e.Info
+                                                    </p>
+                                                    <hr>
+                                                </td>
+                                                <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="3" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                                <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="3" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -393,5 +455,7 @@ ref: http://w3layouts.com
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/js/bootstrap.js"> </script>
+    <script src="http://momentjs.com/downloads/moment-with-locales.js"></script>
+    <script src="http://momentjs.com/downloads/moment-timezone-with-data.js"></script>
 </body>
 </html>
