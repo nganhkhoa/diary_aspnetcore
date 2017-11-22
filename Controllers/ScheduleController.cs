@@ -39,7 +39,21 @@ namespace diary.Controllers
                         return RedirectToAction(nameof(HomeController.Index), "Home");
                   }
 
-                  string strDatetime = day + "/" + month + "/" + year;
+                  string day_str, month_str, year_str;
+
+                  if (day < 10)
+                        day_str = "0" + day;
+                  else
+                        day_str = day.ToString();
+
+                  if (month < 10)
+                        month_str = "0" + month;
+                  else
+                        month_str = month.ToString();
+
+                  year_str = year.ToString();
+
+                  string strDatetime = day_str + "/" + month_str + "/" + year_str;
                   ScheduleController.Exdatetime =
                         DateTime.ParseExact(strDatetime, "dd/MM/yyyy", null);
 
@@ -61,8 +75,15 @@ namespace diary.Controllers
                         .Where(u => u.User.UserName == model.UserName)
                         .ToList();
 
+                  var todayEvents = _context.Events
+                        .Where(u => u.User.UserName == model.UserName)
+                        .Where(d => d.StartDate.Date <= Exdatetime.Date &&
+                                    d.EndDate.Date >= Exdatetime.Date)
+                        .ToList();
+
                   model.entryList = entries;
                   model.eventList = events;
+                  model.todayEventList = todayEvents;
                   model.Date = Exdatetime;
 
                   return View(model);
