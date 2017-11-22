@@ -80,6 +80,23 @@ ref: http://w3layouts.com
 
             <script type="text/javascript" src="/js/jquery.calendario.js"></script>
             <script type="text/javascript" src="/js/data.js"></script>
+            
+            @foreach (var e in Model.eventList)
+            {
+                // calendar events based on database
+                // show on calendar
+                <script type="text/javascript">
+                    var day   = @e.StartDate.Day;
+                    var month = @e.StartDate.Month;
+                    var year  = @e.StartDate.Year;
+
+                    var event_cal = (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day) + '-' + year;
+
+                    events[event_cal] = [{content: 'Event', allDay: true}];
+
+                    console.log("Event @e.Info added on @e.StartDate.ToString()");
+                </script>
+            }
             <script type="text/javascript">
                 // create own data
                 var day = getUrlParameter('day');
@@ -95,15 +112,7 @@ ref: http://w3layouts.com
                     events[selection] = [{content: 'SELECTION', allDay: true}];
                     console.log("selection add on calendar");
                 }
-            </script>
-            <script type="text/javascript">
-                // calendar events based on database
-                @for(int i = 0; i < 10; i++)
-                {
-                    <script type="text/javascript">
-                        console.log("Date added");
-                    </script>
-                }
+                console.log(@Model.eventList.Count());
             </script>
             <script type="text/javascript">
                 $(function () {
@@ -201,7 +210,6 @@ ref: http://w3layouts.com
                 <section id="content1">
                     @*content1_myDiary*@
 
-                    @*Upload your diary*@
                     <div class="row">
                         <div class="col-sm-11">
                             <div class="widget-area no-padding blank">
@@ -237,18 +245,15 @@ ref: http://w3layouts.com
                                         Nothing here
                                     </p>
                                 }else{
-                                    foreach (var entry in Model.entryList)
+                                    foreach (var entry in Model.entryList.Reverse())
                                     {
-                                        <script>
-                                            console.log("fox");
-                                        </script>
 
                                         @*Diary1*@
                                         <tr id="d1">
                                         <td>
                                             <h2>Diary</h2>
                                             <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
-                                            <h5><span class="label label-success">Happy</span></h5><br>
+                                            <h5><span class="label label-success">@entry.Mood</span></h5><br>
                                             <p id="f1">
                                                 @entry.Content
                                             </p>

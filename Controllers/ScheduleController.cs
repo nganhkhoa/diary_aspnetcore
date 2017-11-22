@@ -19,7 +19,7 @@ namespace diary.Controllers
             diaryContext _context;
             SignInManager<User> _signinmanager;
             UserManager<User> _usermanager;
-            DateTime Exdatetime;
+            static DateTime Exdatetime;
 
 
             public ScheduleController(
@@ -40,7 +40,8 @@ namespace diary.Controllers
                   }
 
                   string strDatetime = day + "/" + month + "/" + year;
-                  Exdatetime = DateTime.ParseExact(strDatetime, "dd/MM/yyyy", null);
+                  ScheduleController.Exdatetime =
+                        DateTime.ParseExact(strDatetime, "dd/MM/yyyy", null);
 
                   ModelCollection model = new ModelCollection();
 
@@ -52,13 +53,18 @@ namespace diary.Controllers
                   model.UserName = _usermanager.GetUserName(User);
 
                   var entries = _context.Entries
-                        .Where(u => u.User.UserName == _usermanager.GetUserName(User))
+                        .Where(u => u.User.UserName == model.UserName)
                         .Where(d => d.Date.Date == Exdatetime.Date)
                         .ToList();
 
-                  model.entryList = entries;
-                  return View(model);
+                  var events = _context.Events
+                        .Where(u => u.User.UserName == model.UserName)
+                        .ToList();
 
+                  model.entryList = entries;
+                  model.eventList = events;
+
+                  return View(model);
             }
 
 
@@ -71,21 +77,28 @@ namespace diary.Controllers
                         return RedirectToAction("Index");
                   }
 
-                  var entry = new Entry();
+                  DateTime today = DateTime.Now;
                   var user = await _usermanager.GetUserAsync(User);
+                  var entry = new Entry()
+                  {
+                        ID = _context.Entries.ToList().Count() + 1,
+                        Content = modeltemp.strUpload,
+                        Date = today,
+                        User = user
+                  };
 
-                  entry.Content = modeltemp.strUpload;
-                  entry.Date = Exdatetime;
-                  entry.User = user;
+                  _context.Entries.Add(entry);
+                  _context.SaveChanges();
 
-                  // user.Entries.Add(entry);
-
-                  // _context.Entries.Add(entry);
-                  // _context.SaveChanges();
 
 
                   return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
-                        new { day = Exdatetime.Day, month = Exdatetime.Month, year = Exdatetime.Year });
+                        new
+                        {
+                              day = today.Day,
+                              month = today.Month,
+                              year = today.Year
+                        });
             }
       }
 }

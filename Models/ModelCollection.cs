@@ -10,6 +10,7 @@ namespace diary.Models
       {
             public UploadDatetimeModel udModel { get; set; }
             public IEnumerable<Entry> entryList { get; set; }
+            public IEnumerable<Event> eventList { get; set; }
 
             public string UserName { get; set; }
       }

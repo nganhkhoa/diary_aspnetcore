@@ -17,16 +17,6 @@ namespace diary.Models
       };
       public class Entry
       {
-
-            public Entry()
-            {
-                  ID = 0;
-                  Content = "";
-                  Date = DateTime.Parse("1/1/2001");
-                  User = new User();
-            }
-
-            EntryContext entryContext { get; set; }
             public int ID { get; set; }
             public string Content { get; set; }
             public DateTime Date { get; set; }
