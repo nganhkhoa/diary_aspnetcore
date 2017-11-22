@@ -31,5 +31,6 @@
     <Content Include="Controllers\ScheduleController.cs" />
     <Content Include="Models\ModelCollection.cs" />
     <Content Include="Models\ScheduleViewModels\UploadDatetimeModel.cs" />
+    <Content Include="Models\ScheduleViewModels\NewEventModel.cs" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,11 @@ ref: http://w3layouts.com
 @model diary.Models.ModelCollection
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
+@{
+    int i = 0; // counter for tabs
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +117,6 @@ ref: http://w3layouts.com
                     events[selection] = [{content: 'SELECTION', allDay: true}];
                     console.log("selection add on calendar");
                 }
-                console.log(@Model.eventList.Count());
             </script>
             <script type="text/javascript">
                 $(function () {
@@ -210,6 +214,7 @@ ref: http://w3layouts.com
                 <section id="content1">
                     @*content1_myDiary*@
 
+                @if (Model.Date.Date == DateTime.Now.Date) {
                     <div class="row">
                         <div class="col-sm-11">
                             <div class="widget-area no-padding blank">
@@ -230,7 +235,7 @@ ref: http://w3layouts.com
                             </div><!-- Widget Area -->
                         </div>
                     </div>
-
+                }
 
 
                     @*MyDiary List here*@
@@ -249,12 +254,12 @@ ref: http://w3layouts.com
                                     {
 
                                         @*Diary1*@
-                                        <tr id="d1">
+                                        <tr id="d + @i">
                                         <td>
                                             <h2>Diary</h2>
                                             <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
                                             <h5><span class="label label-success">@entry.Mood</span></h5><br>
-                                            <p id="f1">
+                                            <p id="f + @i++">
                                                 @entry.Content
                                             </p>
                                             <hr>
@@ -281,8 +286,8 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <div class="widget-area no-padding blank">
                                 <div class="status-upload">
-                                    <form>
-                                        <textarea placeholder="What is your next events?"></textarea>
+                                    <form asp-action="EventProcess">
+                                        <textarea asp-for="evModel.Info" placeholder="What is your next events?"></textarea>
                                         <ul>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
@@ -303,38 +308,33 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-                                    @*Event1*@
-                                    <tr id="d3">
-                                        <td>
-                                            <h2>Pass Exam</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span> 20:21:11 11/12/2017.</h5>
-                                            <h5><span class="label label-success">Happy</span></h5><br>
-                                            <p id="f3">
-                                                I passed all in this semester.
-                                                I passed all in this semester.
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="3" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="3" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                    </tr>
-
-                                    @*Event2*@
-                                    <tr id="d4">
-                                        <td>
-                                            <h2>Fail Exam</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span> 15:22:11 11/12/2016.</h5>
-                                            <h5><span class="label label-success">Angry</span></h5><br>
-                                            <p id="f4">
-                                                I failed all in this semester.
-                                                I passed all in this semester.
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="4" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="4" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                    </tr>
-
+                                    
+                                    @if (Model.eventList.Count() == 0)
+                                    {
+                                        <p>
+                                            No events today
+                                        </p>
+                                    }else{
+                                    foreach (var e in Model.eventList.Reverse())
+                                    {
+                                        if (e.StartDate.Date > DateTime.Now.Date ||
+                                            e.EndDate.Date < DateTime.Now.Date)
+                                        {
+                                            continue;
+                                        }
+                                        <tr id="d + @i">
+                                            <td>
+                                                <h2>Events</h2>
+                                                <h5><span class="glyphicon glyphicon-time"></span> @e.StartDate.Date.ToString() -> @e.EndDate.Date.ToString()</h5>
+                                                <p id="f + @i++">
+                                                    @e.Info
+                                                </p>
+                                                <hr>
+                                            </td>
+                                            <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="3" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                                            <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="3" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                        </tr>
+                                    }}
                                 </tbody>
                             </table>
                         </div>
