@@ -33,6 +33,7 @@ namespace diary
                   services
                         .AddMvc();
 
+
                   services
                         .AddDbContext<diaryContext>(
                               options =>
@@ -45,37 +46,37 @@ namespace diary
 
                   services.Configure<IdentityOptions>(options =>
                   {
-                        // Password settings
-                        options.Password.RequireDigit = true;
+                  // Password settings
+                  options.Password.RequireDigit = true;
                         options.Password.RequiredLength = 8;
                         options.Password.RequireNonAlphanumeric = false;
                         options.Password.RequireUppercase = false;
                         options.Password.RequireLowercase = false;
-                        // options.Password.RequiredUniqueChars = 6;
+                  // options.Password.RequiredUniqueChars = 6;
 
-                        // Lockout settings
-                        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                  // Lockout settings
+                  options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                         options.Lockout.MaxFailedAccessAttempts = 10;
                         options.Lockout.AllowedForNewUsers = true;
 
-                        // User settings
-                        options.User.RequireUniqueEmail = true;
+                  // User settings
+                  options.User.RequireUniqueEmail = true;
                   });
 
                   services.ConfigureApplicationCookie(options =>
                   {
-                        // Cookie settings
-                        options.Cookie.HttpOnly = true;
+                  // Cookie settings
+                  options.Cookie.HttpOnly = true;
                         options.Cookie.Expiration = TimeSpan.FromDays(150);
 
-                        // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-                        options.LoginPath = "/Account/Index";
+                  // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
+                  options.LoginPath = "/Account/Index";
 
-                        // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-                        options.LogoutPath = "/Account/Logout";
+                  // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                  options.LogoutPath = "/Account/Logout";
 
-                        // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
-                        options.AccessDeniedPath = "/Account/AccessDenied";
+                  // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                  options.AccessDeniedPath = "/Account/AccessDenied";
                         options.SlidingExpiration = true;
                   });
             }

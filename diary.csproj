@@ -29,5 +29,8 @@
     <Content Include="Helper\PasswordHashing.cs" />
     <Content Include="Models\AccountViewModels\LoginRegisterModel.cs" />
     <Content Include="Controllers\ScheduleController.cs" />
+    <Content Include="Models\ModelCollection.cs" />
+    <Content Include="Models\ScheduleViewModels\UploadDatetimeModel.cs" />
+    <Content Include="Models\ScheduleViewModels\NewEventModel.cs" />
   </ItemGroup>
 </Project>

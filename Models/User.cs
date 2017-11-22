@@ -13,7 +13,7 @@ namespace diary.Models
             public DateTime Brithday { get; set; }
 
             // navigation properties
-            public ICollection<Event> Events { get; set; }
-            public ICollection<Entry> Entries { get; set; }
+            public virtual ICollection<Event> Events { get; set; }
+            public virtual ICollection<Entry> Entries { get; set; }
       }
 }

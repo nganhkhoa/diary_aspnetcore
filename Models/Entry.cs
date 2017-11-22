@@ -1,6 +1,7 @@
 using System;
 
 namespace diary.Models
+
 {
       public enum Mood
       {
@@ -22,6 +23,6 @@ namespace diary.Models
             public Mood? Mood { get; set; }
 
             // navigation properties
-            public User User { get; set; }
+            public virtual User User { get; set; }
       }
 }
