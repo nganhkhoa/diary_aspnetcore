@@ -87,11 +87,7 @@ ref: http://w3layouts.com
 
             <script type="text/javascript" src="/js/jquery.calendario.js"></script>
             <script type="text/javascript" src="/js/data.js"></script>
-<<<<<<< HEAD
             
-=======
-
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
             @foreach (var e in Model.eventList)
             {
                 // calendar events based on database
@@ -109,7 +105,6 @@ ref: http://w3layouts.com
                 </script>
             }
             <script type="text/javascript">
-<<<<<<< HEAD
                 // create own data
                 var day = getUrlParameter('day');
                 var month = getUrlParameter('month');
@@ -130,20 +125,6 @@ ref: http://w3layouts.com
                     function updateMonthYear() {
                         $('#custom-month').html($('#calendar').calendario('getMonthName'));
                         $('#custom-year').html($('#calendar').calendario('getYear'));
-=======
-                    // create own data
-                    var day = getUrlParameter('day');
-                    var month = getUrlParameter('month');
-                    var year = getUrlParameter('year');
-
-                    today = new Date();
-                    if (year != today.getFullYear() ||
-                        month != today.getMonth() + 1 ||
-                        day != today.getDate()) {
-                        var selection = (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day) + '-' + year;
-                        events[selection] = [{ content: 'SELECTION', allDay: true }];
-                        console.log("selection add on calendar");
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
                     }
             </script>
             <script type="text/javascript">
@@ -170,7 +151,6 @@ ref: http://w3layouts.com
                             });
                         });
 
-<<<<<<< HEAD
                     $('#calendar').on('shown.calendar.calendario', function () {
                         $('div.fc-row > div').on('onDayClick.calendario', function (e, dateprop) {
                             console.log(dateprop);
@@ -185,22 +165,6 @@ ref: http://w3layouts.com
                                     "&month=" + dateprop.month +
                                     "&year=" + dateprop.year;
                             }
-=======
-                        $('#calendar').on('shown.calendar.calendario', function () {
-                            $('div.fc-row > div').on('onDayClick.calendario', function (e, dateprop) {
-                                console.log(dateprop);
-                                var today = new Date();
-                                if (dateprop.year != today.getFullYear() ||
-                                    dateprop.month != today.getMonth() ||
-                                    dateprop.day != today.getDate()) {
-                                    // jump to date
-                                    window.location.href =
-                                        "Schedule?day=" + dateprop.day +
-                                        "&month=" + dateprop.month +
-                                        "&year=" + dateprop.year;
-                                }
-                            });
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
                         });
 
                         var transEndEventNames = {
@@ -258,30 +222,6 @@ ref: http://w3layouts.com
                 <section id="content1">
                     @*content1_myDiary*@
 
-<<<<<<< HEAD
-                @if (Model.Date.Date == DateTime.Now.Date) {
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <div class="widget-area no-padding blank">
-                                <div class="status-upload">
-
-                                    <form asp-controller ="Schedule" asp-action ="EntryProcess"  method="get">
-                                        <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
-                                        <ul>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                        </ul>
-                                        <button type="submit" class="btn btn-success green"><i class="fa fa-upload"></i>Upload</button>
-                                    </form>
-
-                                </div><!-- Status Upload  -->
-                            </div><!-- Widget Area -->
-                        </div>
-                    </div>
-                }
-=======
                     @if (Model.Date.Date == DateTime.Now.Date)
                     {
                         <div class="row">
@@ -317,7 +257,6 @@ ref: http://w3layouts.com
 
                         </div>
                     }
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
 
 
                     @*MyDiary List here*@
@@ -325,34 +264,6 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-<<<<<<< HEAD
-                                
-                                @if (Model.entryList.Count() == 0)
-                                {
-                                    <p>
-                                        Nothing here
-                                    </p>
-                                }else{
-                                    foreach (var entry in Model.entryList.Reverse())
-                                    {
-
-                                        @*Diary1*@
-                                        <tr id="d + @i">
-                                        <td>
-                                            <h2>Diary</h2>
-                                            <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
-                                            <h5><span class="label label-success">@entry.Mood</span></h5><br>
-                                            <p id="f + @i++">
-                                                @entry.Content
-                                            </p>
-                                            <hr>
-                                        </td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                        <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="1" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                        </tr>
-                                    }
-                                }
-=======
 
                                     @if (Model.entryList.Count() == 0)
                                     {
@@ -383,7 +294,6 @@ ref: http://w3layouts.com
                                             </tr>
                                         }
                                     }
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
 
                                 </tbody>
                             </table>
@@ -403,8 +313,6 @@ ref: http://w3layouts.com
                                 <div class="status-upload">
                                     <form asp-action="EventProcess">
                                         <textarea asp-for="evModel.Info" placeholder="What is your next events?"></textarea>
-<<<<<<< HEAD
-=======
                                         <div class="row">
                                             <div class="col-lg-6"> 
                                                     <label class="control-label col-sm-2" for="start-date">Start:</label>
@@ -426,7 +334,6 @@ ref: http://w3layouts.com
                                             </div>
                                         </div>
 
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
                                         <ul>
                                             <li>
                                                 <div class="dropdown">
@@ -458,30 +365,6 @@ ref: http://w3layouts.com
                         <div class="col-sm-11">
                             <table class="table table-hover table-responsive">
                                 <tbody>
-<<<<<<< HEAD
-                                    
-                                    @if (Model.eventList.Count() == 0)
-                                    {
-                                        <p>
-                                            No events today
-                                        </p>
-                                    }else{
-                                    foreach (var e in Model.todayEventList)
-                                    {
-                                        <tr id="d + @i">
-                                            <td>
-                                                <h2>Events</h2>
-                                                <h5><span class="glyphicon glyphicon-time"></span> @e.StartDate.Date.ToString() -> @e.EndDate.Date.ToString()</h5>
-                                                <p id="f + @i++">
-                                                    @e.Info
-                                                </p>
-                                                <hr>
-                                            </td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#edit" data-uid="3" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                                            <td align="center"><button type="button" data-toggle="modal" data-target="#delete" data-uid="3" class="delete btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button></td>
-                                        </tr>
-                                    }}
-=======
 
                                     @if (Model.eventList.Count() == 0)
                                     {
@@ -509,7 +392,6 @@ ref: http://w3layouts.com
                                             </tr>
                                         }
                                     }
->>>>>>> cd1dc06a5f9c025461bf58da4638a9b415863152
                                 </tbody>
                             </table>
                         </div>
