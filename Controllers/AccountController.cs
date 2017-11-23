@@ -39,7 +39,13 @@ namespace diary.Controllers
                   {
                         DateTime today = DateTime.Now;
                         return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
-                              new { day = today.Day, month = today.Month, year = today.Year });
+                              new
+                              {
+                                    type = "diary",
+                                    day = today.Day,
+                                    month = today.Month,
+                                    year = today.Year
+                              });
                   }
             }
 

@@ -9,10 +9,12 @@ namespace diary.Models.ScheduleViewModels
 
       public class UploadDatetimeModel
       {
+            public string Title { get; set; }
             [Required]
             public string strUpload { get; set; }
             [Required]
             public DateTime Datetime { get; set; }
+            public Mood? Mood { get; set; }
 
       }
 

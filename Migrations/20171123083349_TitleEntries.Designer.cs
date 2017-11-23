@@ -12,9 +12,10 @@ using System;
 namespace diary.Migrations
 {
     [DbContext(typeof(diaryContext))]
-    partial class diaryContextModelSnapshot : ModelSnapshot
+    [Migration("20171123083349_TitleEntries")]
+    partial class TitleEntries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

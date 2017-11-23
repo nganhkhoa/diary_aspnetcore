@@ -66,6 +66,16 @@ ref: http://w3layouts.com
     <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
     <!--//web-fonts-->
 </head>
+
+
+<script>
+    var param_type  = getUrlParameter('type');
+    var param_day   = getUrlParameter('day');
+    var param_month = getUrlParameter('month');
+    var param_year  = getUrlParameter('year');
+</script>
+
+
 <body>
     <!-- content -->
     <div class="row">
@@ -87,7 +97,7 @@ ref: http://w3layouts.com
 
             <script type="text/javascript" src="/js/jquery.calendario.js"></script>
             <script type="text/javascript" src="/js/data.js"></script>
-            
+
             @foreach (var e in Model.eventList)
             {
                 // calendar events based on database
@@ -101,23 +111,25 @@ ref: http://w3layouts.com
 
                     events[event_cal] = [{content: 'Event', allDay: true}];
 
-                    console.log("Event @e.Info added on @e.StartDate.ToString()");
+                    console.log(
+                        "Event @e.Info.ToString() added on @e.StartDate.ToShortDateString()");
                 </script>
             }
             <script type="text/javascript">
                 // create own data
-                var day = getUrlParameter('day');
-                var month = getUrlParameter('month');
-                var year = getUrlParameter('year');
 
                 today = new Date();
-                if (year != today.getFullYear() ||
-                    month != today.getMonth() + 1 ||
-                    day != today.getDate())
+                if (param_year != today.getFullYear() ||
+                    param_month != today.getMonth() + 1 ||
+                    param_day != today.getDate())
                 {
-                    var selection = (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day) + '-' + year;
+                    var selection =
+                        (param_month < 10 ? '0' + param_month : param_month) + '-' +
+                        (param_day < 10 ? '0' + param_day : param_day) + '-' +
+                        param_year;
+
                     events[selection] = [{content: 'SELECTION', allDay: true}];
-                    console.log("selection add on calendar");
+                    console.log("Selection add on calendar");
                 }
             </script>
             <script type="text/javascript">
@@ -146,7 +158,11 @@ ref: http://w3layouts.com
 
                     $('#calendar').on('shown.calendar.calendario', function () {
                         $('div.fc-row > div').on('onDayClick.calendario', function (e, dateprop) {
-                            console.log(dateprop);
+                            console.log('clicked date ' +
+                                dateprop.day + '/' +
+                                dateprop.month + '/' +
+                                dateprop.year);
+
                             var today = new Date();
                             if (dateprop.year != today.getFullYear() ||
                                 dateprop.month != today.getMonth() ||
@@ -154,7 +170,8 @@ ref: http://w3layouts.com
                             {
                                 // jump to date
                                 window.location.href =
-                                    "Schedule?day=" + dateprop.day +
+                                    "Schedule?type=" + param_type +
+                                    "&day=" + dateprop.day +
                                     "&month=" + dateprop.month +
                                     "&year=" + dateprop.year;
                             }
@@ -194,6 +211,7 @@ ref: http://w3layouts.com
                             month: getUrlParameter('month'),
                             year: getUrlParameter('year'),
                             caldata: events,
+                            fillEmpty: false,
                             displayWeekAbbr: true,
                             events: ['click', 'focus']
                         });
@@ -205,13 +223,30 @@ ref: http://w3layouts.com
         <!--news feed-->
         <div class="col-md-9">
             <main>
-                <input id="tab1" type="radio" name="tabs" checked>
+
+                <input id="tab1" type="radio" name="tabs"/>
                 <label for="tab1">My Diaries</label>
 
-                <input id="tab2" type="radio" name="tabs">
+                <input id="tab2" type="radio" name="tabs" checked/>
                 <label for="tab2">My Events</label>
-
-
+                <script type="text/javascript">
+                    if (param_type == "event") {
+                        document.getElementById("tab1").checked = false;
+                        document.getElementById("tab2").checked = true;
+                    }
+                    else if (param_type == "diary")
+                    {
+                        document.getElementById("tab1").checked = true;
+                        document.getElementById("tab2").checked = false;
+                    }
+                    else {
+                        window.location.href =
+                            "Schedule?type=diary" +
+                            "&day=" + param_day +
+                            "&month=" + param_month +
+                            "&year=" + param_year;
+                    }
+                </script>
 
                 <section id="content1">
                     @*content1_myDiary*@
@@ -224,7 +259,8 @@ ref: http://w3layouts.com
                                     <div class="status-upload">
 
                                         <form asp-controller="Schedule" asp-action="EntryProcess" method="get">
-                                            <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?"></textarea>
+                                            <textarea type="text" asp-for="udModel.Title" placeholder="Untitled" style="height:65px"></textarea>
+                                            <textarea asp-for="udModel.strUpload" placeholder="What are you thinking right now?" required=""></textarea>
                                             <ul>
                                                 <li>
                                                     <div class="dropdown">
@@ -264,7 +300,23 @@ ref: http://w3layouts.com
                                         <div class="jumbotron">
                                             <div class="text-center"><i class="fa fa-5x fa-frown-o" style="color:#d9534f;"></i></div>
                                             <h1 class="text-center">No Diary found</h1>
-                                            <p class="text-center">How was your day??</p>
+                                            @{
+                                                Random num = new Random();
+                                                // not worth sending ajax call to get random string
+                                                string[] quotes = new string[]{
+                                                    "“I think being in love with life is a key to eternal youth.” —Doug Hutchison",
+                                                    "“You’re only here for a short visit. Don’t hurry, don’t worry. And be sure to smell the flowers along the way.” —Walter Hagen",
+                                                    "“A man who dares to waste one hour of time has not discovered the value of life.” —Charles Darwin",
+                                                    "“If life were predictable it would cease to be life, and be without flavor.” —Eleanor Roosevelt",
+                                                    "“All life is an experiment. The more experiments you make the better.” —Ralph Waldo Emerson",
+                                                    "“All of life is peaks and valleys. Don’t let the peaks get too high and the valleys too low.” —John Wooden",
+                                                    "“Find ecstasy in life; the mere sense of living is joy enough.” —Emily Dickinson",
+                                                    "“My mission in life is not merely to survive, but to thrive; and to do so with some passion, some compassion, some humor, and some style.” —Maya Angelou",
+                                                    "“However difficult life may seem, there is always something you can do and succeed at.” —Stephen Hawking",
+                                                    "“Life is like riding a bicycle. To keep your balance, you must keep moving.” —Albert Einstein"
+                                                };
+                                                <p class="text-center">@quotes[num.Next(1, num.Next(0, 1000)) % 10]</p>
+                                            }
                                         </div>
                                     }else{
                                         foreach (var entry in Model.entryList.Reverse())
@@ -273,7 +325,7 @@ ref: http://w3layouts.com
                                             @*Diary1*@
                                             <tr id="d + @i">
                                                 <td>
-                                                    <h2>Diary</h2>
+                                                    <h2>@entry.Title</h2>
                                                     <h5><span class="glyphicon glyphicon-time"></span>@entry.Date.ToString()</h5>
                                                     <h5><span class="label label-success">@entry.Mood</span></h5><br>
                                                     <p id="f + @i++">
@@ -304,32 +356,32 @@ ref: http://w3layouts.com
                             <div class="widget-area no-padding blank">
                                 <div class="status-upload">
                                     <form asp-action="EventProcess">
-                                        <textarea asp-for="evModel.Info" placeholder="What is your next events?"></textarea>
+                                        <textarea asp-for="evModel.Info" placeholder="What is your next events?" required=""></textarea>
                                         <div class="row">
-                                            <div class="col-lg-6"> 
+                                            <div class="col-lg-6">
                                                     <label class="control-label col-sm-2" for="start-date">Start:</label>
                                                     <div class="input-group registration-date-time">
                                                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                                        <input class="form-control" name="start_date" id="start-date" type="date">
+                                                        <input class="form-control" asp-for="evModel.StartDate" id="start-date" type="date" required="">
                                                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
                                                         <input class="form-control" name="start_time" id="start-time" type="time">
-                                                    </div>                               
+                                                    </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="control-label col-sm-2" for="end-date">End:</label>
                                                 <div class="input-group registration-date-time">
                                                     <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-                                                    <input class="form-control" name="end_date" id="end-date" type="date">
+                                                    <input class="form-control" asp-for="evModel.EndDate" id="end-date" type="date" required="">
                                                     <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
                                                     <input class="form-control" name="end_time" id="end-time" type="time">
-                                                </div>  
+                                                </div>
                                             </div>
                                         </div>
 
                                         <ul>
                                             <li>
                                                 <div class="dropdown">
-                                                    <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Emotion</button>
+                                                    <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Occurence</button>
                                                     <div class="dropdown-content">
                                                         <a href="#">Link 1</a>
                                                         <a href="#">Link 2</a>

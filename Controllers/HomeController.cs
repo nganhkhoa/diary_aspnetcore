@@ -24,7 +24,13 @@ namespace diary.Controllers
 
                   if (_signinmanager.IsSignedIn(User))
                         return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
-                              new { day = today.Day, month = today.Month, year = today.Year });
+                              new
+                              {
+                                    type = "diary",
+                                    day = today.Day,
+                                    month = today.Month,
+                                    year = today.Year
+                              });
 
                   return View();
             }

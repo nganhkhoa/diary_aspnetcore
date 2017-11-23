@@ -32,7 +32,7 @@ namespace diary.Controllers
                   _usermanager = usermanager;
             }
 
-            public IActionResult Index(int day, int month, int year)
+            public IActionResult Index(string type, int day, int month, int year)
             {
                   if (!_signinmanager.IsSignedIn(User))
                   {
@@ -77,6 +77,7 @@ namespace diary.Controllers
 
                   var todayEvents = _context.Events
                         .Where(u => u.User.UserName == model.UserName)
+                        // events happens in range today
                         .Where(d => d.StartDate.Date <= Exdatetime.Date &&
                                     d.EndDate.Date >= Exdatetime.Date)
                         .ToList();
@@ -84,6 +85,7 @@ namespace diary.Controllers
                   model.entryList = entries;
                   model.eventList = events;
                   model.todayEventList = todayEvents;
+                  // date to compare in view
                   model.Date = Exdatetime;
 
                   return View(model);
@@ -94,9 +96,18 @@ namespace diary.Controllers
             {
                   UploadDatetimeModel modeltemp = model.udModel;
 
+                  // view taken care
+                  // but for precautions
                   if (modeltemp.strUpload == "" || modeltemp.strUpload == null)
                   {
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
+                        new
+                        {
+                              type = "diary",
+                              day = ScheduleController.Exdatetime.Day,
+                              month = ScheduleController.Exdatetime.Month,
+                              year = ScheduleController.Exdatetime.Year
+                        });
                   }
 
                   DateTime today = DateTime.Now;
@@ -104,6 +115,7 @@ namespace diary.Controllers
                   var entry = new Entry()
                   {
                         ID = _context.Entries.ToList().Count() + 1,
+                        Title = (modeltemp.Title == null) ? ("Diary on " + DateTime.Now.ToString()) : modeltemp.Title,
                         Content = modeltemp.strUpload,
                         Date = today,
                         User = user
@@ -115,6 +127,7 @@ namespace diary.Controllers
                   return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
                         new
                         {
+                              type = "diary",
                               day = today.Day,
                               month = today.Month,
                               year = today.Year
@@ -128,7 +141,26 @@ namespace diary.Controllers
 
                   if (modeltemp.Info == "" || modeltemp.Info == null)
                   {
-                        return RedirectToAction("Index");
+                        return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
+                        new
+                        {
+                              type = "event",
+                              day = ScheduleController.Exdatetime.Day,
+                              month = ScheduleController.Exdatetime.Month,
+                              year = ScheduleController.Exdatetime.Year
+                        });
+                  }
+
+                  if (modeltemp.StartDate >= modeltemp.StartDate)
+                  {
+                        return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
+                        new
+                        {
+                              type = "event",
+                              day = ScheduleController.Exdatetime.Day,
+                              month = ScheduleController.Exdatetime.Month,
+                              year = ScheduleController.Exdatetime.Year
+                        });
                   }
 
                   var user = await _usermanager.GetUserAsync(User);
@@ -136,8 +168,8 @@ namespace diary.Controllers
                   {
                         ID = _context.Events.ToList().Count() + 1,
                         Info = modeltemp.Info,
-                        StartDate = Exdatetime,
-                        EndDate = Exdatetime,
+                        StartDate = modeltemp.StartDate,
+                        EndDate = modeltemp.EndDate,
                         User = user
                   };
 
@@ -147,6 +179,7 @@ namespace diary.Controllers
                   return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
                         new
                         {
+                              type = "event",
                               day = ScheduleController.Exdatetime.Day,
                               month = ScheduleController.Exdatetime.Month,
                               year = ScheduleController.Exdatetime.Year

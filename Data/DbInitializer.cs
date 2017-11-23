@@ -116,6 +116,7 @@ namespace diary.Data
                         {
                               ID = 1,
                               User = users[0],
+                              Title = "Cong tac xa hoi",
                               Content = "Di cong tac xa hoi",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.happy
@@ -124,6 +125,7 @@ namespace diary.Data
                         {
                               ID = 2,
                               User = users[1],
+                              Title = "OOP",
                               Content = "Hoc oop",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
@@ -132,6 +134,7 @@ namespace diary.Data
                         {
                               ID = 3,
                               User = users[2],
+                              Title = "Late night",
                               Content = "On fackbook khuya",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
@@ -140,6 +143,7 @@ namespace diary.Data
                         {
                               ID = 4,
                               User = users[3],
+                              Title = "????",
                               Content = "Mat tieu",
                               Date = DateTime.Parse("11/11/2017"),
                               Mood = Mood.normal
