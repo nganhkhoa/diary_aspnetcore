@@ -230,11 +230,11 @@ ref: http://w3layouts.com
                 <input id="tab2" type="radio" name="tabs" checked/>
                 <label for="tab2">My Events</label>
                 <script type="text/javascript">
-                    if (param_type == "event") {
+                    if (param_type == "event" || param_type == "events") {
                         document.getElementById("tab1").checked = false;
                         document.getElementById("tab2").checked = true;
                     }
-                    else if (param_type == "diary")
+                    else if (param_type == "diary" || param_type == "diaries")
                     {
                         document.getElementById("tab1").checked = true;
                         document.getElementById("tab2").checked = false;
@@ -264,13 +264,17 @@ ref: http://w3layouts.com
                                             <ul>
                                                 <li>
                                                     <div class="dropdown">
-                                                        <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Emotion</button>
-                                                        <div class="dropdown-content">
-                                                            <a href="#">Link 1</a>
-                                                            <a href="#">Link 2</a>
-                                                            <a href="#">Link 3</a>
-                                                            <a href="#">Link 3</a>
-                                                        </div>
+                                                        <select asp-for="udModel.Mood" class="dropbtn">
+                                                            <option value="@Mood.normal">Normal</option>
+                                                            <option value="@Mood.happy">Happy</option>
+                                                            <option value="@Mood.peaceful">Peaceful</option>
+                                                            <option value="@Mood.inlove">In love</option>
+                                                            <option value="@Mood.joyful">Joyful</option>
+                                                            <option value="@Mood.a_bit_blue">A bit blue</option>
+                                                            <option value="@Mood.sad">Sad</option>
+                                                            <option value="@Mood.depress">Depress</option>
+                                                            <option value="@Mood.gloomy">Gloomy</option>
+                                                        </select>
                                                     </div>
                                                 </li>
                                                 <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
@@ -381,13 +385,13 @@ ref: http://w3layouts.com
                                         <ul>
                                             <li>
                                                 <div class="dropdown">
-                                                    <button class="dropbtn"><i class="fa fa-smile-o" aria-hidden="true"></i>Occurence</button>
-                                                    <div class="dropdown-content">
-                                                        <a href="#">Link 1</a>
-                                                        <a href="#">Link 2</a>
-                                                        <a href="#">Link 3</a>
-                                                        <a href="#">Link 3</a>
-                                                    </div>
+                                                    <select asp-for="evModel.Occurrence" class="dropbtn">
+                                                        <option value="@Occurrency.never">Never</option>
+                                                        <option value="@Occurrency.once_a_year">Once a year</option>
+                                                        <option value="@Occurrency.once_a_month">Once a month</option>
+                                                        <option value="@Occurrency.once_a_week">Once_a_week</option>
+                                                        <option value="@Occurrency.once_a_day">Once a day</option>
+                                                    </select>
                                                 </div>
                                             </li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
@@ -410,16 +414,14 @@ ref: http://w3layouts.com
                             <table class="table table-hover table-responsive">
                                 <tbody>
 
-                                    @if (Model.eventList.Count() == 0)
+                                    @if (Model.todayEventList.Count() == 0)
                                     {
                                         <div class="jumbotron">
                                             <div class="text-center"><i class="fa fa-5x fa-frown-o" style="color:#d9534f;"></i></div>
                                             <h1 class="text-center">No Event found</h1>
-                                            <p class="text-center">Let's set up your Events right now...</p>
+                                            <p class="text-center">Lets set up your Events right now...</p>
                                         </div>
-                                    }
-                                    else
-                                    {
+                                    }else{
                                         foreach (var e in Model.todayEventList)
                                         {
                                             <tr id="d + @i">

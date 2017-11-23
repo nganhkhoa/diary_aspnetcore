@@ -118,6 +118,7 @@ namespace diary.Controllers
                         Title = (modeltemp.Title == null) ? ("Diary on " + DateTime.Now.ToString()) : modeltemp.Title,
                         Content = modeltemp.strUpload,
                         Date = today,
+                        Mood = modeltemp.Mood,
                         User = user
                   };
 
