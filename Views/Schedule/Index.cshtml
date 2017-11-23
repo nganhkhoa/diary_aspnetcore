@@ -368,7 +368,7 @@ ref: http://w3layouts.com
                                                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
                                                         <input class="form-control" asp-for="evModel.StartDate" id="start-date" type="date" required="">
                                                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-                                                        <input class="form-control" name="start_time" id="start-time" type="time">
+                                                        <input class="form-control" asp-for="evModel.StartTime" id="start-time" type="time">
                                                     </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -377,7 +377,7 @@ ref: http://w3layouts.com
                                                     <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
                                                     <input class="form-control" asp-for="evModel.EndDate" id="end-date" type="date" required="">
                                                     <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-                                                    <input class="form-control" name="end_time" id="end-time" type="time">
+                                                    <input class="form-control" asp-for="evModel.EndTime" id="end-time" type="time">
                                                 </div>
                                             </div>
                                         </div>
@@ -389,7 +389,7 @@ ref: http://w3layouts.com
                                                         <option value="@Occurrency.never">Never</option>
                                                         <option value="@Occurrency.once_a_year">Once a year</option>
                                                         <option value="@Occurrency.once_a_month">Once a month</option>
-                                                        <option value="@Occurrency.once_a_week">Once_a_week</option>
+                                                        <option value="@Occurrency.once_a_week">Once a week</option>
                                                         <option value="@Occurrency.once_a_day">Once a day</option>
                                                     </select>
                                                 </div>
@@ -427,7 +427,7 @@ ref: http://w3layouts.com
                                             <tr id="d + @i">
                                                 <td>
                                                     <h2>Events</h2>
-                                                    <h5><span class="glyphicon glyphicon-time"></span> @e.StartDate.Date.ToString() -> @e.EndDate.Date.ToString()</h5>
+                                                    <h5><span class="glyphicon glyphicon-time"></span> From @e.StartDate.ToShortTimeString() to @e.EndDate.ToShortTimeString()</h5>
                                                     <p id="f + @i++">
                                                         @e.Info
                                                     </p>

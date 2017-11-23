@@ -152,7 +152,10 @@ namespace diary.Controllers
                         });
                   }
 
-                  if (modeltemp.StartDate >= modeltemp.StartDate)
+                  DateTime Start = modeltemp.StartDate.AddTicks(modeltemp.StartTime.TimeOfDay.Ticks);
+                  DateTime End = modeltemp.EndDate.AddTicks(modeltemp.EndTime.TimeOfDay.Ticks);
+
+                  if (Start >= End)
                   {
                         return RedirectToAction(nameof(ScheduleController.Index), "Schedule",
                         new
@@ -169,8 +172,9 @@ namespace diary.Controllers
                   {
                         ID = _context.Events.ToList().Count() + 1,
                         Info = modeltemp.Info,
-                        StartDate = modeltemp.StartDate,
-                        EndDate = modeltemp.EndDate,
+                        StartDate = Start,
+                        EndDate = End,
+                        Occurrence = modeltemp.Occurrence,
                         User = user
                   };
 
