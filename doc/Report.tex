@@ -253,8 +253,8 @@ TRƯỜNG ĐẠI HỌC BÁCH KHOA TP HCM \\
 
 \begin{table}[h]
 \begin{tabular}{rrl}
-\hspace{5cm} & \textbf{GV hướng dẫn}: &thầy Nguyễn Văn Hiệp \\
-& &thầy Mai Đức Trung\\
+\hspace{5cm} & \textbf{GV hướng dẫn}: &TS Nguyễn Văn Hiệp \\
+& &ThS Mai Đức Trung\\
 
 
 \end{tabular}
@@ -319,7 +319,7 @@ TRƯỜNG ĐẠI HỌC BÁCH KHOA TP HCM \\
 
 		\multicolumn{2}{|l|}{\textbf{Tổng phần trăm đóng góp}} &\textbf{30\%}& \textbf{25\%}& \textbf{25\%} & \textbf{20\%} \\ \hline
 
-		\multicolumn{2}{|l|}{\textbf{Các ứng dung \& phần mềm hỗ trợ}} & \textbf{Phần mền} & \multicolumn{3}{l|}{\textbf{Minh chứng}} \\ \hline
+		\multicolumn{2}{|l|}{\textbf{Các ứng dung \& phần mềm hỗ trợ}} & \textbf{Phần mềm} & \multicolumn{3}{l|}{\textbf{Minh chứng}} \\ \hline
 		1. & Công nghệ phát triển phần mềm & Asp.Net core 2.0 	& \multicolumn{3}{l|}{•} \\ \hline
 
 		2. & Thực hiện viết source code & Visual Studio & \multicolumn{3}{l|}{•} \\ \hline
@@ -401,9 +401,9 @@ Như hình \ref{mainbook1} ta thấy dữ liệu gồm có 3 phần chính: ngư
 \begin{itemize}
 	\item Người dùng (USER) : có 4 trường dữ liệu chính. Trong đó ID của từng người dùng sẽ là khác nhau và được sinh tự động. Trường ID của mỗi người dùng sẽ là khác nhau, do đó, ta có thể phân biệt từng người dùng với nhau thông vào trường này. Hơn nữa, trường ID này cũng là khóa chính để tham chiếu đến trường ENTRY và EVENT. Các trường còn lại do người dùng nhập vào khi thực hiện thủ tục đăng ký.
 
-	\item Nhật Ký (ENTRY) : ENTRY lưu trữ các thông tin của người dùng. Hãy tưởng tượng với trang facebook. ENTRY này sẽ lữu trữ các cảm nghĩ, hình ảnh, video,... mà mỗi khi bạn upload lên.
+	\item Nhật ký (ENTRY) : ENTRY lưu trữ các thông tin của người dùng. Hãy tưởng tượng với trang facebook. ENTRY này sẽ lữu trữ các cảm nghĩ, hình ảnh, video,... mà mỗi khi bạn upload lên.
 
-	\item Sự Kiên (EVENT) : EVENT lưu trữ những thông tin mà ta đã đặt hẹn trước. Event này cũng có thể là một sự kiện báo ngày sinh nhật, đặt lịch hẹn...
+	\item Sự  kiện (EVENT) : EVENT lưu trữ những thông tin mà ta đã đặt hẹn trước. Event này cũng có thể là một sự kiện báo ngày sinh nhật, đặt lịch hẹn...
 
 \end{itemize}
 
@@ -448,7 +448,7 @@ Như hình \ref{mainbook2} phần mềm chúng ta thực hiện theo mô hình M
 		\item \textbf{User} : như đã biết user này chứa thông tin của một người dùng như tên, Ngày sinh,... và được tham chiếu đến Entry và Event.
 		\item \textbf{Entry} : Trường này chứa nội dung nhật ký mà người dùng muốn lưu. Context sẽ chứa nội dung nhật ký, Date chứa ngày lưu nhật ký ... Có thêm một enum mood về cảm nghĩ khi viết nhật ký đó.
 
-		\item \textbf{Event} : Trường này lưu trữ các sự kiện sẽ diễn ra và thông báo cho người dùng biết. StartDate sẽ lưu trữ ngày cập nhật sự kiện, EndDate luu trữ ngày thông báo sự kiện ... Có thêm trường Occurrence để mặc định khoảng thời gian thông báo sự kiện.
+		\item \textbf{Event} : Trường này lưu trữ các sự kiện sẽ diễn ra và thông báo cho người dùng biết. StartDate sẽ lưu trữ ngày cập nhật sự kiện, EndDate lưu trữ ngày thông báo sự kiện ... Có thêm trường Occurrence để mặc định khoảng thời gian thông báo sự kiện.
 
 
 
@@ -586,10 +586,10 @@ Như hình \ref{mainbook2} phần mềm chúng ta thực hiện theo mô hình M
 \end{enumerate}
 
 
-\section{Tổ chức và quản lý mã nguồn trong quá trình quá triển}
+\section{Tổ chức và quản lý mã nguồn trong quá trình quát triển}
 
 	\begin{itemize}
-		\item \textbf{Link GitHup} : \url{https://github.com/nganhkhoa/diary\_aspnetcore}
+		\item \textbf{Link Github} : \url{https://github.com/nganhkhoa/diary\_aspnetcore}
 
 
 
@@ -616,11 +616,11 @@ Sử dụng omnisharp như một công cụ để auto format code \(C\#\), sử
 
 \subsection{Tài liệu hướng dẫn sử dụng phần mềm}
 
-	Có lẽ mọi người đã rất quen thuộc với một trang web nhật ký. Với phần mềm diary này cũng vậy, phần mềm với giao diện dễ sử dụng giúp cho việc tiếp cận với phần mềm đễ dàng và thuận tiện. Sau đây là một số hướng dẫn cụ thể khi sử dụng phần mềm.
+	Có lẽ mọi người đã rất quen thuộc với một trang web nhật ký. Với phần mềm diary này cũng vậy, phần mềm với giao diện dễ sử dụng giúp cho việc tiếp cận với phần mềm dễ dàng và thuận tiện. Sau đây là một số hướng dẫn cụ thể khi sử dụng phần mềm.
 
 	\begin{enumerate}
 		\item \textbf{Đăng nhập và đăng ký}
-		Khi sử dụng phần mềm người dùng đàu tiên sẽ được làm việc với trang chủ chủ hệ thống (như hình \ref{mainbook16} ).
+		Khi sử dụng phần mềm người dùng đầu tiên sẽ được làm việc với trang chủ hệ thống (như hình \ref{mainbook16} ).
 
 		\begin{figure}[!h]
 	 			\centering
