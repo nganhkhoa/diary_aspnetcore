@@ -85,7 +85,7 @@
             @using (Html.BeginForm("Index", "Account"))
             {
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input type="text" asp-for="register.UserName" placeholder="Your Name" required="" />
+                <input type="text" asp-for="register.UserName" placeholder="Username" required="" />
                 <span asp-validation-for="register.UserName" class="text-danger"></span>
                 <input type="text" asp-for="register.Email" class="email" placeholder="Email" required="" />
                 <span asp-validation-for="register.Email" class="text-danger"></span>
